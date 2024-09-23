@@ -28,13 +28,13 @@ class Reponse
     /**
      * @var Collection<int, Post>
      */
-    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'reponse')]
+    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reponse')]
     private Collection $ref_post;
 
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'reponse')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reponse')]
     private Collection $ref_user;
 
     public function __construct()
