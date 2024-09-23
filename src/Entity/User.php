@@ -41,25 +41,25 @@ class User
     /**
      * @var Collection<int, FicheEntreprise>
      */
-    #[ORM\OneToMany(targetEntity: FicheEntreprise::class, mappedBy: 'user')]
+    #[ORM\ManyToOne(targetEntity: FicheEntreprise::class, inversedBy: 'user')]
     private Collection $ref_entreprise;
 
     /**
      * @var Collection<int, Specialite>
      */
-    #[ORM\OneToMany(targetEntity: Specialite::class, mappedBy: 'user')]
+    #[ORM\ManyToOne(targetEntity: Specialite::class, inversedBy: 'user')]
     private Collection $ref_spe;
 
     /**
      * @var Collection<int, Hopital>
      */
-    #[ORM\OneToMany(targetEntity: Hopital::class, mappedBy: 'user')]
+    #[ORM\ManyToOne(targetEntity: Hopital::class, inversedBy: 'user')]
     private Collection $ref_hopital;
 
     /**
      * @var Collection<int, Role>
      */
-    #[ORM\OneToMany(targetEntity: Role::class, mappedBy: 'user')]
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'user')]
     private Collection $ref_role;
 
     /**
