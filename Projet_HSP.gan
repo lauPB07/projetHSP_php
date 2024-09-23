@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-11-14" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3309" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:3" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="200" order="0"/>
+        <field id="tpd4" name="Date de début" width="75" order="1"/>
+        <field id="tpd5" name="Date de fin" width="75" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#ff0000 #33ffff #cc00cc #cc00ff #003333 #f4f4f4]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="4bc7573986ab40c98adebe8cc49fbe98" name="analyse des besoins et conception" color="#003333" meeting="false" start="2024-09-09" duration="11" complete="0" expand="true">
+            <task id="9" uid="1ac93a0a27cd4f6995a79626d045fdcb" name="repartitions des taches" meeting="false" start="2024-09-09" duration="1" complete="0" expand="false"/>
+            <task id="3" uid="fd4bac16e8e843b08d00ffc9de5a9d93" name="conception base de données" meeting="false" start="2024-09-10" duration="7" complete="0" expand="true"/>
+            <task id="4" uid="76c622e4f1834c3f96f33fb716800ac1" name="documentation generale" meeting="false" start="2024-09-19" duration="2" complete="0" expand="true"/>
+            <task id="7" uid="352911904e494bb7bc125ec7d06c639b" name="choix technologie et disgne" meeting="false" start="2024-09-23" duration="1" complete="0" expand="true"/>
+        </task>
+        <task id="10" uid="1eeb3a865bec4f719898d2fe76b9905b" name="developpement" meeting="false" start="2024-09-24" duration="60" complete="0" expand="true">
+            <task id="19" uid="1572a3630e014c07af8a54dae62ef548" name="module admin" color="#ff0000" meeting="false" start="2024-09-24" duration="30" complete="0" expand="true"/>
+            <task id="14" uid="f68af3a1f7cf4c34b11f6064fc4def55" name="module etudiant" color="#ff0000" meeting="false" start="2024-11-05" duration="30" complete="0" expand="true"/>
+            <task id="11" uid="ff9e911363c143a0be9135afd043f9fd" name="section contact et support" color="#33ffff" meeting="false" start="2024-09-24" duration="25" complete="0" expand="true"/>
+            <task id="16" uid="395b09fe75db45ca8e030f742bfe3572" name="module medecin" color="#33ffff" meeting="false" start="2024-10-29" duration="30" complete="0" expand="true"/>
+            <task id="15" uid="d69869a2e83343f79d5ed03aaea52cc9" name="page d'acceuil" color="#cc00cc" meeting="false" start="2024-09-24" duration="25" complete="0" expand="true"/>
+            <task id="13" uid="2a6a2659f2a146c095948d4511058002" name="module entreprise" color="#cc00cc" meeting="false" start="2024-10-29" duration="30" complete="0" expand="true"/>
+        </task>
+        <task id="20" uid="a46a6511771e4bca8446d450230bd59e" name="Deploiement" meeting="false" start="2024-12-17" duration="5" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
