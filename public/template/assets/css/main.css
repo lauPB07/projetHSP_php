@@ -859,6 +859,7 @@ section,
 .hero .container {
   background: color-mix(in srgb, var(--surface-color), transparent 10%);
   position: relative;
+  top: 70px; left: 40px;
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;

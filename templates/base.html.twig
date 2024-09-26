@@ -24,6 +24,13 @@
 
             <!-- Main CSS File -->
             <link href="{{ asset('template/assets/css/main.css') }}" rel="stylesheet">
+            <!--Calendar-->
+            <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            <link rel="stylesheet" href="{{ asset('calendar/css/style.css') }}">
+
         {% endblock %}
 
         {% block javascripts %}
@@ -37,6 +44,7 @@
 
         {% endblock %}
     </main>
+    {% include 'footer.html' %}
         <!-- Vendor JS Files -->
         <script src="{{ asset('template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('template/assets/vendor/php-email-form/validate.js') }}"></script>
@@ -47,5 +55,10 @@
 
         <!-- Main JS File -->
         <script src="{{ asset('template/assets/js/main.js') }}"></script>
+        <!--Calendar-->
+        <script src="{{ asset('calendar/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('calendar/js/popper.js') }}"></script>
+        <script src="{{ asset('calendar/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('calendar/js/main.js') }}"></script>
     </body>
 </html>

@@ -11,7 +11,7 @@
             <div class="carousel-item active">
                 <img src="{{ asset('template/assets/img/hero-carousel/hero-carousel-1.jpg') }}" alt="">
                 <div class="container">
-                    <h2>Bienvenue à l'Hopital sud Paris</h2>
+                    <h2>Bienvenue à l'Hopital Sud Paris</h2>
                     <p>
                         Inauguré en 1995, l'hôpital privé HSP (Hôpital Sud Paris) est le fruit du rattachement de plusieurs
                         établissements indépendants au pôle territorial Paris Sud du groupe GDH. Situé dans la commune de
@@ -21,7 +21,6 @@
                         Associant des compétences diverses et complémentaires, l'établissement possède : un pôle de chirurgie,un pôle de médecine,
                         un pôle de cancérologie,un pôle de maternité,un pôle d'imagerie médicale et un service d'urgences 24h/24 7j/7.
                     </p>
-                    <a href="#" class="btn-get-started">Read More</a>
                 </div>
             </div><!-- End Carousel Item -->
 
@@ -48,8 +47,70 @@
                 </div>
             </div>
         </div>
-
     </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Les evenements de notre hôpital</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content w-100">
+                        <div class="calendar-container">
+                            <div class="calendar">
+                                <div class="year-header">
+                                    <span class="left-button fa fa-chevron-left" id="prev"> </span>
+                                    <span class="year" id="label"></span>
+                                    <span class="right-button fa fa-chevron-right" id="next"> </span>
+                                </div>
+                                <table class="months-table w-100">
+                                    <tbody>
+                                    <tr class="months-row">
+                                        <td class="month">Jan</td>
+                                        <td class="month">Feb</td>
+                                        <td class="month">Mar</td>
+                                        <td class="month">Apr</td>
+                                        <td class="month">May</td>
+                                        <td class="month">Jun</td>
+                                        <td class="month">Jul</td>
+                                        <td class="month">Aug</td>
+                                        <td class="month">Sep</td>
+                                        <td class="month">Oct</td>
+                                        <td class="month">Nov</td>
+                                        <td class="month">Dec</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="days-table w-100">
+                                    <td class="day">Sun</td>
+                                    <td class="day">Mon</td>
+                                    <td class="day">Tue</td>
+                                    <td class="day">Wed</td>
+                                    <td class="day">Thu</td>
+                                    <td class="day">Fri</td>
+                                    <td class="day">Sat</td>
+                                </table>
+                                <div class="frame">
+                                    <table class="dates-table w-100">
+                                        <tbody class="tbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="events-container">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 
 {% endblock %}

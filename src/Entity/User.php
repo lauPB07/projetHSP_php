@@ -94,6 +94,9 @@ class User
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'ref_userParticipe')]
     private Collection $events;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $formationEtudiant = null;
+
 
 
 
@@ -446,6 +449,18 @@ class User
         if ($this->events->removeElement($event)) {
             $event->removeRefUserParticipe($this);
         }
+
+        return $this;
+    }
+
+    public function getFormationEtudiant(): ?string
+    {
+        return $this->formationEtudiant;
+    }
+
+    public function setFormationEtudiant(?string $formationEtudiant): static
+    {
+        $this->formationEtudiant = $formationEtudiant;
 
         return $this;
     }
