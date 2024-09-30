@@ -38,13 +38,13 @@
         {% endblock %}
     </head>
     <body>
-    {% include 'header.html' %}
+    {% include 'header.html.twig' %}
     <main class="main">
         {% block body %}
 
         {% endblock %}
     </main>
-    {% include 'footer.html' %}
+    {% include 'footer.html.twig' %}
         <!-- Vendor JS Files -->
         <script src="{{ asset('template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('template/assets/vendor/php-email-form/validate.js') }}"></script>

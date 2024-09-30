@@ -12,7 +12,7 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="{{ path('home') }}" class="active">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Departments</a></li>
@@ -39,7 +39,7 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="cta-btn" href="#">Connexion/Inscription</a>
+            <a class="cta-btn" href="{{ path('app_login') }}">Connexion/Inscription</a>
 
         </div>
 
