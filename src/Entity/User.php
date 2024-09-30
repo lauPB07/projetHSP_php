@@ -66,7 +66,7 @@ class User implements UserInterface
     /**
      * @var Collection<int, FicheEtablissement>
      */
-    #[ORM\OneToMany(targetEntity: FicheEtablissement::class, mappedBy: 'user')]
+    #[ORM\ManyToOne(targetEntity: FicheEtablissement::class, inversedBy: 'user')]
     private Collection $ref_etablissement;
 
     #[ORM\ManyToOne(inversedBy: 'ref_user')]

@@ -31,7 +31,7 @@ class Post
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'post')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'post')]
     private Collection $ref_user;
 
     #[ORM\ManyToOne(inversedBy: 'ref_post')]
