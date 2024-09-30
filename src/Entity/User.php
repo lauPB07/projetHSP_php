@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -466,6 +467,21 @@ class User
     }
 
 
+    public function getRoles(): array
+    {
+        return $this->ref_role;
+        // TODO: Implement getRoles() method.
+    }
 
+    public function eraseCredentials(): void
+    {
 
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+        // TODO: Implement getUserIdentifier() method.
+    }
 }

@@ -12,7 +12,23 @@ security:
         main:
             lazy: true
             provider: users_in_memory
+<<<<<<< HEAD
             custom_authenticator: App\Security\UserSecurityAuthenticator
+=======
+            custom_authenticator: App\Security\UserAuthentificatorAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                # by default, the feature is enabled by checking a checkbox in the
+                # login form, uncomment the following line to always enable it.
+                #always_remember_me: true
+>>>>>>> b7fde782a737d5534640371aadf91e88599bd536
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
