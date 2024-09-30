@@ -95,6 +95,9 @@ class User implements UserInterface
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'ref_userParticipe')]
     private Collection $events;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $formationEtudiant = null;
+
 
 
 
@@ -447,6 +450,18 @@ class User implements UserInterface
         if ($this->events->removeElement($event)) {
             $event->removeRefUserParticipe($this);
         }
+
+        return $this;
+    }
+
+    public function getFormationEtudiant(): ?string
+    {
+        return $this->formationEtudiant;
+    }
+
+    public function setFormationEtudiant(?string $formationEtudiant): static
+    {
+        $this->formationEtudiant = $formationEtudiant;
 
         return $this;
     }

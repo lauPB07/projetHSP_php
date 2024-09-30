@@ -49,6 +49,12 @@ class Event
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
     private Collection $ref_userParticipe;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
+    #[ORM\Column]
+    private ?int $nbPlace = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -195,6 +201,30 @@ class Event
     public function removeRefUserParticipe(User $refUserParticipe): static
     {
         $this->ref_userParticipe->removeElement($refUserParticipe);
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getNbPlace(): ?int
+    {
+        return $this->nbPlace;
+    }
+
+    public function setNbPlace(int $nbPlace): static
+    {
+        $this->nbPlace = $nbPlace;
 
         return $this;
     }

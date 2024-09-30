@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+        <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+            <div class="carousel-item active">
+                <img src="{{ asset('template/assets/img/hero-carousel/hero-carousel-1.jpg') }}" alt="">
+                <div class="container">
+                    <h2>Bienvenue à l'Hopital Sud Paris</h2>
+                    <p>
+                        Inauguré en 1995, l'hôpital privé HSP (Hôpital Sud Paris) est le fruit du rattachement de plusieurs
+                        établissements indépendants au pôle territorial Paris Sud du groupe GDH. Situé dans la commune de
+                        Marreuil sur Seine, à 25km de Paris, l'hôpital compte 90 praticiens et dispose de 289 lits.
+                    </p>
+                    <p>
+                        Associant des compétences diverses et complémentaires, l'établissement possède : un pôle de chirurgie,un pôle de médecine,
+                        un pôle de cancérologie,un pôle de maternité,un pôle d'imagerie médicale et un service d'urgences 24h/24 7j/7.
+                    </p>
+                </div>
+            </div><!-- End Carousel Item -->
+
+        </div>
+
+
+    </section><!-- /Hero Section -->
+    <section>
+        <div class="row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Nos missions</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Nos visions</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Les evenements de notre hôpital</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content w-100">
+                        <div class="calendar-container">
+                            <div class="calendar">
+                                <div class="year-header">
+                                    <span class="left-button fa fa-chevron-left" id="prev"> </span>
+                                    <span class="year" id="label"></span>
+                                    <span class="right-button fa fa-chevron-right" id="next"> </span>
+                                </div>
+                                <table class="months-table w-100">
+                                    <tbody>
+                                    <tr class="months-row">
+                                        <td class="month">Jan</td>
+                                        <td class="month">Feb</td>
+                                        <td class="month">Mar</td>
+                                        <td class="month">Apr</td>
+                                        <td class="month">May</td>
+                                        <td class="month">Jun</td>
+                                        <td class="month">Jul</td>
+                                        <td class="month">Aug</td>
+                                        <td class="month">Sep</td>
+                                        <td class="month">Oct</td>
+                                        <td class="month">Nov</td>
+                                        <td class="month">Dec</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="days-table w-100">
+                                    <td class="day">Sun</td>
+                                    <td class="day">Mon</td>
+                                    <td class="day">Tue</td>
+                                    <td class="day">Wed</td>
+                                    <td class="day">Thu</td>
+                                    <td class="day">Fri</td>
+                                    <td class="day">Sat</td>
+                                </table>
+                                <div class="frame">
+                                    <table class="dates-table w-100">
+                                        <tbody class="tbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="events-container">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}
