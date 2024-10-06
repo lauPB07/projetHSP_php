@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class RegistrationFormTypeEtudiant extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -48,9 +48,10 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('poste')
+            ->add('cv',FileType::class, [])
+            ->add('formation_etudiant',TextareaType::class)
             ->add('ref_role', HiddenType::class, [
-                'data' => 3,
+                'data' => 1,
                 'mapped' => false,
             ])
             ->add('ref_etablissement', HiddenType::class, [
