@@ -75,7 +75,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $formationEtudiant = null;
 
-
+    #[ORM\Column]
+    private bool $isVerified = false;
 
 
 
