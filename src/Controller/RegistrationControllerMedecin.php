@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\RegistrationFormTypeMedecin;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -16,16 +16,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+class RegistrationControllerMedecin extends AbstractController
 {
+
     public function __construct(private EmailVerifier $emailVerifier)
     {
     }
-    #[Route('/registerPartenaire', name: 'app_registerPartenaire')]
+
+    #[Route('/registerMedecin', name: 'app_registerMedecin')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormTypeMedecin::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,6 +40,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // do anything else you need here, like send an email
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('projethspcontact@gmail.com', 'projethspcontact'))
@@ -49,11 +52,12 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/registerMedecin.html.twig', [
             'registrationForm' => $form,
         ]);
     }
-    #[Route('/verify/emailPartenaire', name: 'app_verifyEmailPartenaire')]
+
+    #[Route('/verify/emailMedecin', name: 'app_verifyEmailMedecin')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -66,7 +70,7 @@ class RegistrationController extends AbstractController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
-            return $this->redirectToRoute('app_registerPartenaire');
+            return $this->redirectToRoute('app_registerMedecin');
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates

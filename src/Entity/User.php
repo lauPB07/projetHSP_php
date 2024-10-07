@@ -9,11 +9,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,67 +40,43 @@ class User implements UserInterface
     private ?string $poste = null;
 
     #[ORM\Column]
-    private ?bool $valider = null;
+    private ?bool $valider ;
 
-    /**
-     * @var Collection<int, FicheEntreprise>
-     */
-    #[ORM\ManyToOne(targetEntity: FicheEntreprise::class, inversedBy: 'user')]
-    private Collection $ref_entreprise;
+    #[ORM\ManyToOne(targetEntity: FicheEntreprise::class, inversedBy: 'users')]
+    private ?FicheEntreprise $ref_entreprise = null;  // Correction du type
 
-    /**
-     * @var Collection<int, Specialite>
-     */
-    #[ORM\ManyToOne(targetEntity: Specialite::class, inversedBy: 'user')]
-    private Collection $ref_spe;
+    #[ORM\ManyToOne(targetEntity: Specialite::class, inversedBy: 'users')]
+    private ?Specialite $ref_spe = null;  // Cela reste inchangé
 
-    /**
-     * @var Collection<int, Hopital>
-     */
-    #[ORM\ManyToOne(targetEntity: Hopital::class, inversedBy: 'user')]
-    private Collection $ref_hopital;
+    #[ORM\ManyToOne(targetEntity: Hopital::class, inversedBy: 'users')]
+    private ?Hopital $ref_hopital = null;  // Cela reste inchangé
 
-    /**
-     * @var Collection<int, Role>
-     */
-    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'user')]
-    private Collection $ref_role;
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'users')]
+    private ?Role $ref_role = null;  // Correction du type
 
-    /**
-     * @var Collection<int, FicheEtablissement>
-     */
-    #[ORM\ManyToOne(targetEntity: FicheEtablissement::class, inversedBy: 'user')]
-    private Collection $ref_etablissement;
+    #[ORM\ManyToOne(targetEntity: FicheEtablissement::class, inversedBy: 'users')]
+    private ?FicheEtablissement $ref_etablissement = null;  // Correction du type
 
-    #[ORM\ManyToOne(inversedBy: 'ref_user')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Post $post = null;
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'ref_user')]
+    private Collection $post; // Cela peut rester une Collection
 
-    #[ORM\ManyToOne(inversedBy: 'ref_user')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Reponse $reponse = null;
+    #[ORM\OneToMany(targetEntity: Reponse::class, mappedBy: 'ref_user')]
+    private Collection $reponse; // Cela peut rester une Collection
 
-    /**
-     * @var Collection<int, Offre>
-     */
     #[ORM\ManyToMany(targetEntity: Offre::class, inversedBy: 'users')]
     private Collection $ref_offrePostule;
 
-    /**
-     * @var Collection<int, Event>
-     */
     #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'users')]
     private Collection $ref_creerEvent;
 
-    /**
-     * @var Collection<int, Event>
-     */
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'ref_userParticipe')]
     private Collection $events;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $formationEtudiant = null;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
 
 
 
@@ -108,11 +85,6 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->ref_entreprise = new ArrayCollection();
-        $this->ref_spe = new ArrayCollection();
-        $this->ref_hopital = new ArrayCollection();
-        $this->ref_role = new ArrayCollection();
-        $this->ref_etablissement = new ArrayCollection();
         $this->ref_offrePostule = new ArrayCollection();
         $this->ref_creerEvent = new ArrayCollection();
         $this->events = new ArrayCollection();
@@ -241,7 +213,7 @@ class User implements UserInterface
     /**
      * @return Collection<int, Specialite>
      */
-    public function getRefSpe(): Collection
+    public function getRefSpe(): ?Specialite
     {
         return $this->ref_spe;
     }
@@ -271,10 +243,13 @@ class User implements UserInterface
     /**
      * @return Collection<int, Hopital>
      */
-    public function getRefHopital(): Collection
+
+
+    public function getRefHopital(): ?Hopital
     {
         return $this->ref_hopital;
     }
+
 
     public function addRefHopital(Hopital $refHopital): static
     {
@@ -331,7 +306,7 @@ class User implements UserInterface
     /**
      * @return Collection<int, FicheEtablissement>
      */
-    public function getRefEtablissement(): Collection
+    public function getRefEtablissement(): ?FicheEtablissement
     {
         return $this->ref_etablissement;
     }
@@ -358,7 +333,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPost(): ?Post
+    public function getPost(): Collection
     {
         return $this->post;
     }
@@ -370,7 +345,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getReponse(): ?Reponse
+    public function getReponse(): Collection
     {
         return $this->reponse;
     }
@@ -488,15 +463,43 @@ class User implements UserInterface
         // TODO: Implement getUserIdentifier() method.
     }
 
-    public function isVerified(): bool
+    public function setRefEntreprise(?FicheEntreprise $ref_entreprise): static
     {
-        return $this->isVerified;
-    }
-
-    public function setVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
+        $this->ref_entreprise = $ref_entreprise;
 
         return $this;
+    }
+
+    public function setRefSpe(?Specialite $ref_spe): static
+    {
+        $this->ref_spe = $ref_spe;
+
+        return $this;
+    }
+
+    public function setRefHopital(?Hopital $ref_hopital): static
+    {
+        $this->ref_hopital = $ref_hopital;
+
+        return $this;
+    }
+
+    public function setRefRole(?Role $ref_role): static
+    {
+        $this->ref_role = $ref_role;
+
+        return $this;
+    }
+
+    public function setRefEtablissement(?FicheEtablissement $ref_etablissement): static
+    {
+        $this->ref_etablissement = $ref_etablissement;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        // TODO: Implement getPassword() method.
     }
 }

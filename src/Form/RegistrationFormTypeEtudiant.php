@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\FicheEntreprise;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,22 +14,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RegistrationFormType extends AbstractType
+class RegistrationFormTypeEtudiant extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('nom', TextType::class)
-            ->add('prenom',TextType::class)
-            ->add('CV', FileType::class)
-            ->add('poste', TextType::class)
-            ->add('valider', HiddenType::class)
-            ->add('formation_etudiant', TextType::class)
-            ->add('email' ,EmailType::class)
+            ->add('email')
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
+                    ]),
+                ],
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -46,6 +47,32 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('cv',FileType::class, [])
+            ->add('formation_etudiant',TextareaType::class)
+            ->add('ref_role', HiddenType::class, [
+                'data' => 1,
+                'mapped' => false,
+            ])
+            ->add('ref_etablissement', HiddenType::class, [
+                'data' => null,
+                'mapped' => false,
+            ])
+            ->add('ref_hopital', HiddenType::class, [
+                'data' => null,
+                'mapped' => false,
+            ])
+            ->add('ref_spe', HiddenType::class, [
+                'data' => null,
+                'mapped' => false,
+            ])
+            ->add('ref_entreprise', HiddenType::class, [
+                'data' => null,
+                'mapped' => false,
+            ])
+
+            ->add('valider', HiddenType::class, [
+                'data' => 0,
             ])
         ;
     }

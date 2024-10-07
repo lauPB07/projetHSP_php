@@ -148,5 +148,19 @@ class Reponse
         return $this;
     }
 
+    public function setRefPost(?Post $ref_post): static
+    {
+        $this->ref_post = $ref_post;
+
+        return $this;
+    }
+
+    public function setRefUser(?User $ref_user): static
+    {
+        $this->ref_user = $ref_user;
+
+        return $this;
+    }
+
 
 }

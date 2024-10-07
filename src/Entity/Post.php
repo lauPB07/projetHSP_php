@@ -32,15 +32,13 @@ class Post
      * @var Collection<int, User>
      */
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'post')]
-    private Collection $ref_user;
+    private User $ref_user;
 
-    #[ORM\ManyToOne(inversedBy: 'ref_post')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Reponse $reponse = null;
+
 
     public function __construct()
     {
-        $this->ref_user = new ArrayCollection();
+
     }
 
 
@@ -127,14 +125,11 @@ class Post
         return $this;
     }
 
-    public function getReponse(): ?Reponse
-    {
-        return $this->reponse;
-    }
 
-    public function setReponse(?Reponse $reponse): static
+
+    public function setRefUser(?User $ref_user): static
     {
-        $this->reponse = $reponse;
+        $this->ref_user = $ref_user;
 
         return $this;
     }

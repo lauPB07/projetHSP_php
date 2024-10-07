@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <a type="submit" href="{{ path('app_registerEtudiant') }}" class="btn btn-secondary">Etudiant</a>
+    <a type="submit" href="{{ path('app_registerMedecin') }}" class="btn btn-secondary">Medecin</a>
+    <a type="submit" href="{{ path('app_registerPartenaire') }}" class="btn btn-secondary">Partenaire/Entreprise</a>
+{% endblock %}
