@@ -63,7 +63,6 @@ class RegistrationFormTypeMedecin extends AbstractType
             ])
             ->add('ref_spe', EntityType::class, [
                 'class' => Specialite::class,
-                'choice_label' => 'nom',
             ])
             ->add('ref_entreprise', HiddenType::class, [
                 'data' => null,

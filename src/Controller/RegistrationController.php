@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\RoleRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -21,8 +22,8 @@ class RegistrationController extends AbstractController
     public function __construct(private EmailVerifier $emailVerifier)
     {
     }
-    #[Route('/registerPartenaire', name: 'app_registerPartenaire')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    #[Route('/register/Partenaire', name: 'app_registerPartenaire')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,RoleRepository $roleRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -34,7 +35,7 @@ class RegistrationController extends AbstractController
 
             // encode the plain password
             $user->setMdp($userPasswordHasher->hashPassword($user, $plainPassword));
-
+            $user->setRefRole($roleRepository->find($form->get('role')->getData()));
             $entityManager->persist($user);
             $entityManager->flush();
 

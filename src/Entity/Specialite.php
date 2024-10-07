@@ -16,10 +16,6 @@ class Specialite
     #[ORM\Column(length: 255)]
     private ?string $nom_spe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ref_spe')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -36,16 +32,8 @@ class Specialite
 
         return $this;
     }
-
-    public function getUser(): ?User
+    public function __toString(): string
     {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
+       return $this->nom_spe;
     }
 }
