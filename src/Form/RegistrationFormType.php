@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\FicheEntreprise;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -53,6 +55,13 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('ref_entreprise', EntityType::class, [
+                'class'=>FicheEntreprise::class,
+                'choice_label'=>'nom_entreprise',
+            ])
+            ->add('ref_spe', HiddenType::class)
+            ->add('ref_role', HiddenType::class)
+            ->add('ref_hopital', HiddenType::class)
         ;
     }
 
