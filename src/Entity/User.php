@@ -52,16 +52,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Hopital $ref_hopital = null;  // Cela reste inchangé
 
     #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'users')]
-    private ?Role $ref_role = null;  // Correction du type
+    private ?Role $ref_role = null;
 
     #[ORM\ManyToOne(targetEntity: FicheEtablissement::class, inversedBy: 'users')]
-    private ?FicheEtablissement $ref_etablissement = null;  // Correction du type
+    private ?FicheEtablissement $ref_etablissement = null;
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'ref_user')]
-    private Collection $post; // Cela peut rester une Collection
+    private Collection $post;
 
     #[ORM\OneToMany(targetEntity: Reponse::class, mappedBy: 'ref_user')]
-    private Collection $reponse; // Cela peut rester une Collection
+    private Collection $reponse;
 
     #[ORM\ManyToMany(targetEntity: Offre::class, inversedBy: 'users')]
     private Collection $ref_offrePostule;
@@ -75,8 +75,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $formationEtudiant = null;
 
-    #[ORM\Column]
-    private bool $isVerified = false;
 
 
 
@@ -183,7 +181,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, FicheEntreprise>
      */
-    public function getRefEntreprise(): Collection
+    public function getRefEntreprise(): ?FicheEntreprise
     {
         return $this->ref_entreprise;
     }
@@ -276,7 +274,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Role>
      */
-    public function getRefRole(): Collection
+    public function getRefRole(): ?Role
     {
         return $this->ref_role;
     }
@@ -333,29 +331,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPost(): Collection
-    {
-        return $this->post;
-    }
 
-    public function setPost(?Post $post): static
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    public function getReponse(): Collection
-    {
-        return $this->reponse;
-    }
-
-    public function setReponse(?Reponse $reponse): static
-    {
-        $this->reponse = $reponse;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Offre>
