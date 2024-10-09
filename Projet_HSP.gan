@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-09-06" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3309" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-09-25" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3309" locale="fr_FR">
     <description/>
     <view zooming-state="default:3" id="gantt-chart">
         <field id="tpd3" name="Nom" width="200" order="0"/>
@@ -9,7 +9,7 @@
         <option id="filter.dueTodayTasks" value="false"/>
         <option id="filter.overdueTasks" value="false"/>
         <option id="filter.inProgressTodayTasks" value="false"/>
-        <option id="color.recent"><![CDATA[#ff0000 #33ffff #cc00cc #cc00ff #003333 #f4f4f4]]></option>
+        <option id="color.recent"><![CDATA[#ff0000 #cc00ff #33ffff #cc00cc #003333 #f4f4f4]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nom" width="210" order="0"/>
@@ -45,13 +45,16 @@
             <task id="4" uid="76c622e4f1834c3f96f33fb716800ac1" name="documentation generale" meeting="false" start="2024-09-19" duration="2" complete="0" expand="true"/>
             <task id="7" uid="352911904e494bb7bc125ec7d06c639b" name="choix technologie et disgne" meeting="false" start="2024-09-23" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="10" uid="1eeb3a865bec4f719898d2fe76b9905b" name="developpement" meeting="false" start="2024-09-24" duration="60" complete="0" expand="true">
-            <task id="19" uid="1572a3630e014c07af8a54dae62ef548" name="module admin" color="#ff0000" meeting="false" start="2024-09-24" duration="30" complete="0" expand="true"/>
-            <task id="14" uid="f68af3a1f7cf4c34b11f6064fc4def55" name="module etudiant" color="#ff0000" meeting="false" start="2024-11-05" duration="30" complete="0" expand="true"/>
-            <task id="11" uid="ff9e911363c143a0be9135afd043f9fd" name="section contact et support" color="#33ffff" meeting="false" start="2024-09-24" duration="25" complete="0" expand="true"/>
-            <task id="16" uid="395b09fe75db45ca8e030f742bfe3572" name="module medecin" color="#33ffff" meeting="false" start="2024-10-29" duration="30" complete="0" expand="true"/>
-            <task id="15" uid="d69869a2e83343f79d5ed03aaea52cc9" name="page d'acceuil" color="#cc00cc" meeting="false" start="2024-09-24" duration="25" complete="0" expand="true"/>
-            <task id="13" uid="2a6a2659f2a146c095948d4511058002" name="module entreprise" color="#cc00cc" meeting="false" start="2024-10-29" duration="30" complete="0" expand="true"/>
+        <task id="10" uid="1eeb3a865bec4f719898d2fe76b9905b" name="developpement" meeting="false" start="2024-09-24" duration="44" complete="0" expand="true">
+            <task id="21" uid="9c6bac43b1724efe8d3c408e8f03d314" name="Connexion/inscription pour tout les utilisaterurs" color="#cc00ff" meeting="false" start="2024-09-24" duration="10" complete="0" expand="true">
+                <depend id="15" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="15" uid="d69869a2e83343f79d5ed03aaea52cc9" name="page d'acceuil + gestion admin" color="#cc00cc" meeting="false" start="2024-10-08" duration="30" complete="0" expand="true"/>
+            <task id="13" uid="2a6a2659f2a146c095948d4511058002" name="module entreprise" color="#cc00cc" meeting="false" start="2024-10-09" duration="30" complete="0" expand="true"/>
+            <task id="22" uid="dc9829eda4ae42d1b93b1fc38ec76d39" name="gestion envoie de mail" color="#ff0000" meeting="false" start="2024-10-07" duration="15" complete="0" expand="true"/>
+            <task id="14" uid="f68af3a1f7cf4c34b11f6064fc4def55" name="module etudiant" color="#ff0000" meeting="false" start="2024-10-14" duration="30" complete="0" expand="true"/>
+            <task id="11" uid="ff9e911363c143a0be9135afd043f9fd" name="section contact et support" color="#33ffff" meeting="false" start="2024-10-14" duration="25" complete="0" expand="true"/>
+            <task id="16" uid="395b09fe75db45ca8e030f742bfe3572" name="module medecin" color="#33ffff" meeting="false" start="2024-10-14" duration="30" complete="0" expand="true"/>
         </task>
         <task id="20" uid="a46a6511771e4bca8446d450230bd59e" name="Deploiement" meeting="false" start="2024-12-17" duration="5" complete="0" expand="true"/>
     </tasks>
