@@ -423,8 +423,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        return $this->ref_role;
-        // TODO: Implement getRoles() method.
+        // Commencez par un tableau vide de rôles
+        $roles = [];
+
+        // Si l'utilisateur a un rôle, ajoutez son nom au tableau
+        if ($this->ref_role) {
+            $roles[] = $this->ref_role->getNomRole(); // Supposons que Role a une méthode getName()
+        }
+
+        // Retournez le tableau des rôles
+        return $roles;
     }
 
     public function eraseCredentials(): void
@@ -477,5 +485,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         // TODO: Implement getPassword() method.
+        return $this->mdp;
     }
 }
