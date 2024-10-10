@@ -12,32 +12,59 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
+                    {# Ce bloc s'affiche pour tous les utilisateurs, connectés ou non #}
                     <li><a href="{{ path('home') }}" class="active">Home</a></li>
                     <li><a href="#">Actualité</a></li>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#">Evenements</a></li>
-                    <li><a href="#">Doctors</a></li>
-                    <li class="dropdown"><a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="#">Stages</a></li>
-                            <li><a href="#">Emplois</a></li>
-                            <li><a href="#">Projets</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Forum de discussion</a></li>
+
+                    {% if app.user %}
+                        {% if 'Etudiant' in app.user.roles %}
+                            <li><a href="#">Doctors</a></li>
+                            <li><a href="#">Forum de discussion</a></li>
+                            <li class="dropdown">
+                                <a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="#">Stages</a></li>
+                                    <li><a href="#">Emplois</a></li>
+                                    <li><a href="#">Projets</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Evenements</a></li>
+                        {% endif %}
+                        {% if 'Partenaire/Entreprise' in app.user.roles  %}
+                            <li class="dropdown">
+                                <a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="#">Stages</a></li>
+                                    <li><a href="#">Emplois</a></li>
+                                    <li><a href="#">Projets</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Evenements</a></li>
+                            <li><a href="#">Profil Entreprise</a></li>
+                        {% endif %}
+                        {% if 'Medecin' in app.user.roles %}
+                            <li><a href="#">Evenements</a></li>
+                            <li><a href="#">Profil Etudiant</a></li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
+            <di>
             {% if app.user is null %}
             <a class="cta-btn" href="{{ path('app_login') }}">Connexion/Inscription</a>
             {% else  %}
-            <li class="dropdown"><a><span>{{ app.user.nom }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                    <li><a href="#">Information du compte</a></li>
-                    <li><a href="{{ path('app_logout') }}">Deconnection</a></li>
-                </ul>
-            </li>
+                <li class="dropdown">
+                        <span>{{ app.user.nom }}</span>
+                        <i class="bi bi-chevron-down toggle-dropdown"></i>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Information du compte</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    </ul>
+                </li>
             {% endif %}
+            </di>
 
 
         </div>
