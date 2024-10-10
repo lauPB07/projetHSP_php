@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une offre{% endblock %}
+
+{% block body %}
+    <h1>Créer une offre</h1>
+    {{ form(form) }}
+    <a class="btn btn-primary" href="{{ path('CreateOffre') }}">Retour</a>
+{% endblock %}

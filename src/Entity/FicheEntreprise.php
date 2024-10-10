@@ -38,16 +38,13 @@ class FicheEntreprise
     #[ORM\ManyToMany(targetEntity: Offre::class, mappedBy: 'ref_EntrepriseCreer')]
     private Collection $offres;
 
-    /**
-     * @var Collection<int, Offre>
-     */
-    #[ORM\ManyToMany(targetEntity: Offre::class, inversedBy: 'ficheEntreprises')]
-    private Collection $ref_OffreCreer;
+
+
 
     public function __construct()
     {
         $this->offres = new ArrayCollection();
-        $this->ref_OffreCreer = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -143,27 +140,5 @@ class FicheEntreprise
         return $this;
     }
 
-    /**
-     * @return Collection<int, Offre>
-     */
-    public function getRefOffreCreer(): Collection
-    {
-        return $this->ref_OffreCreer;
-    }
 
-    public function addRefOffreCreer(Offre $refOffreCreer): static
-    {
-        if (!$this->ref_OffreCreer->contains($refOffreCreer)) {
-            $this->ref_OffreCreer->add($refOffreCreer);
-        }
-
-        return $this;
-    }
-
-    public function removeRefOffreCreer(Offre $refOffreCreer): static
-    {
-        $this->ref_OffreCreer->removeElement($refOffreCreer);
-
-        return $this;
-    }
 }

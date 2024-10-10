@@ -75,6 +75,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $formationEtudiant = null;
 
+    /**
+     * @var Collection<int, Offre>
+     */
+    #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'ref_userCreer')]
+    private Collection $offres;
+
 
 
 
@@ -86,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ref_offrePostule = new ArrayCollection();
         $this->ref_creerEvent = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
 
@@ -483,5 +490,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // TODO: Implement getPassword() method.
         return $this->mdp;
+    }
+
+    /**
+     * @return Collection<int, Offre>
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): static
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres->add($offre);
+            $offre->setRefUserCreer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): static
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getRefUserCreer() === $this) {
+                $offre->setRefUserCreer(null);
+            }
+        }
+
+        return $this;
     }
 }
