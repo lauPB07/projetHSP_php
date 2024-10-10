@@ -42,7 +42,7 @@
                                 </ul>
                             </li>
                             <li><a href="#">Evenements</a></li>
-                            <li><a href="#">Profil Entreprise</a></li>
+                            <li><a href="{{ path('profilEntreprise') }}">Profil Entreprise</a></li>
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
                             <li><a href="#">Evenements</a></li>

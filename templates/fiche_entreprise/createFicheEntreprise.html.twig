@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer une fiche entreprise{% endblock %}
+{% block body %}
+    {{ form(form) }}
+    <a class="btn btn-primary" href="{{ path('profilEntreprise') }}">Retour</a>
+{% endblock %}

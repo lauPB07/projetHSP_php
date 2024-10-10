@@ -6,8 +6,11 @@ use App\Repository\FicheEntrepriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[ORM\Entity(repositoryClass: FicheEntrepriseRepository::class)]
+#[UniqueEntity(fields: ['adress_web'], message: 'There is already an entreprise with this site adress')]
 class FicheEntreprise
 {
     #[ORM\Id]

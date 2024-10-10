@@ -9,6 +9,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -41,8 +42,11 @@ class OffreFormType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->where('u.id = :current_user_id') // Limite la sélection à l'utilisateur connecté
                         ->setParameter('current_user_id', $options['user_id']);
-                }]);
+                }])
+            ->add('Save', SubmitType::class)
         ;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

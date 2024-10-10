@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Entreprise{% endblock %}
+
+{% block body %}
+    <div>
+        {# Vérifier si l'utilisateur a une entreprise associée #}
+        {% if entreprise is not null %}
+            <h2>Informations sur votre entreprise</h2>
+            <p>Nom de l'Entreprise: {{ entreprise.nomEntreprise }}</p>
+            <p>Adresse: {{ entreprise.rue }}, {{ entreprise.cp }} {{ entreprise.ville }}</p>
+            <p>Site Web: <a href="{{ entreprise.adresseWeb }}">{{ entreprise.adresseWeb }}</a></p>
+        {% else %}
+            <p>Vous n'êtes pas associé à une fiche entreprise.</p>
+            <a href="{{ path('createFicheEntreprise') }}" class="btn btn-secondary">Créer une fiche entreprise</a>
+            <a href="#" class="btn btn-secondary">Se rattacher à une fiche entreprise</a>
+        {% endif %}
+    </div>
+{% endblock %}
