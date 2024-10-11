@@ -28,8 +28,7 @@ class OffreFormType extends AbstractType
                 'class' => FicheEntreprise::class,
                 'choice_label' => 'nom_entreprise', // Assurez-vous de spécifier la propriété appropriée
                 'multiple' => true,
-                'expanded' => true, // ou false pour un select au lieu de checkboxes
-                'choices' => $options['entreprises'], // Passer les entreprises à partir des options
+                'expanded' => false, // ou false pour un select au lieu de checkboxes
             ])
             ->add('ref_typeOffre', EntityType::class, [
                 'class' => TypeOffre::class,

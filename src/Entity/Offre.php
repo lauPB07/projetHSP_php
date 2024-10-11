@@ -28,8 +28,7 @@ class Offre
     #[ORM\Column(nullable: true)]
     private ?float $salaire = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
+
 
     #[ORM\Column]
     private ?bool $est_cloturer = null;
@@ -117,17 +116,6 @@ class Offre
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function isEstCloturer(): ?bool
     {

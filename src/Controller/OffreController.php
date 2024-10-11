@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\FicheEntreprise;
 use App\Entity\Offre;
 use App\Form\OffreFormType;
-use App\Form\OffreType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -40,7 +39,7 @@ class OffreController extends AbstractController
             if ($user) {
                 $offre->setRefUserCreer($user);
             }
-            foreach ($form->get('refEntreprises')->getData() as $entreprise) {
+            foreach ($form->get('ref_EntrepriseCreer')->getData() as $entreprise) {
                 $offre->addRefEntrepriseCreer($entreprise);
             }
             $manager->persist($offre);
