@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\FicheEntreprise;
 use App\Entity\Offre;
+use App\Entity\TypeOffre;
 use App\Form\OffreFormType;
+use App\Repository\OffreRepository;
+use App\Repository\RecipeRepository;
+use App\Repository\TypeOffreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -49,6 +53,30 @@ class OffreController extends AbstractController
         }
         return $this->render('/offre/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/showAllStages', name: 'showAllStages')]
+    public function showAllStages( OffreRepository $repository): Response
+    {
+        // Récupérer toutes les offres de type "Stage"
+        $offres = $repository->findAllStages();
+
+        return $this->render('offre/showAllStage.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
+
+    #[Route('/showStage', name: 'showStages')]
+    public function showStages(OffreRepository $repository, Security $security): Response
+    {
+        $user = $security->getUser();
+        $entreprises = $user->getRefEntreprise();
+        $entrepriseId = $entreprises->getId();
+        $offres = $repository->findStagesByEntreprise($entrepriseId);
+
+        return $this->render('offre/showStage.html.twig', [
+            'offres' => $offres,
         ]);
     }
 }

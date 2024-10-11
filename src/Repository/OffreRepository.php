@@ -16,6 +16,29 @@ class OffreRepository extends ServiceEntityRepository
         parent::__construct($registry, Offre::class);
     }
 
+    public function findAllStages()
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.ref_typeOffre', 't')
+            ->where('t.nom = :type')
+            ->setParameter('type', 'Stages')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findStagesByEntreprise($entrepriseId)
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.ref_EntrepriseCreer', 'e') // Supposons que 'refEntreprises' est la propriété ManyToMany
+            ->join('o.ref_typeOffre', 't')
+            ->where('t.nom = :type')
+            ->andWhere('e.id = :entrepriseId') // Condition pour l'entreprise
+            ->setParameter('type', 'Stages')
+            ->setParameter('entrepriseId', $entrepriseId)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Offre[] Returns an array of Offre objects
 //     */
