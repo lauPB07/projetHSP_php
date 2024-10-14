@@ -39,6 +39,32 @@ class OffreRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findStagesByEntrepriseTwo($entrepriseId)
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.ref_EntrepriseCreer', 'e') // Supposons que 'refEntreprises' est la propriété ManyToMany
+            ->join('o.ref_typeOffre', 't')
+            ->where('t.nom = :type')
+            ->andWhere('e.id = :entrepriseId') // Condition pour l'entreprise
+            ->setParameter('type', 'Emplois')
+            ->setParameter('entrepriseId', $entrepriseId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findStagesByEntrepriseThree($entrepriseId)
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.ref_EntrepriseCreer', 'e') // Supposons que 'refEntreprises' est la propriété ManyToMany
+            ->join('o.ref_typeOffre', 't')
+            ->where('t.nom = :type')
+            ->andWhere('e.id = :entrepriseId') // Condition pour l'entreprise
+            ->setParameter('type', 'Projets')
+            ->setParameter('entrepriseId', $entrepriseId)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Offre[] Returns an array of Offre objects
 //     */

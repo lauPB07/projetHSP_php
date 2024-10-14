@@ -79,4 +79,30 @@ class OffreController extends AbstractController
             'offres' => $offres,
         ]);
     }
+
+    #[Route('/showEmplois', name: 'showEmplois')]
+    public function showEmplois(OffreRepository $repository, Security $security): Response
+    {
+        $user = $security->getUser();
+        $entreprises = $user->getRefEntreprise();
+        $entrepriseId = $entreprises->getId();
+        $offres = $repository->findStagesByEntrepriseTwo($entrepriseId);
+
+        return $this->render('offre/showEmplois.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
+
+    #[Route('/showProjets', name: 'showProjets')]
+    public function showProjets(OffreRepository $repository, Security $security): Response
+    {
+        $user = $security->getUser();
+        $entreprises = $user->getRefEntreprise();
+        $entrepriseId = $entreprises->getId();
+        $offres = $repository->findStagesByEntrepriseThree($entrepriseId);
+
+        return $this->render('offre/showProjets.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
 }
