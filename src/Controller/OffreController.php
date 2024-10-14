@@ -7,7 +7,6 @@ use App\Entity\Offre;
 use App\Entity\TypeOffre;
 use App\Form\OffreFormType;
 use App\Repository\OffreRepository;
-use App\Repository\RecipeRepository;
 use App\Repository\TypeOffreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,10 +31,8 @@ class OffreController extends AbstractController
         $offre = new Offre();
         // Récupérer l'utilisateur connecté
         $user = $security->getUser();
-        $userId = $user ? $user->getId() : null; // Vérifiez si l'utilisateur est connecté
         $entreprises = $user ? $user->getRefEntreprise() : new FicheEntreprise();
         $form = $this->createForm(OffreFormType::class, $offre, [
-            'user_id' => $userId, // Passer l'ID de l'utilisateur
             'entreprises' => $entreprises,
         ]);
         $form->handleRequest($request);
@@ -123,7 +120,7 @@ class OffreController extends AbstractController
 
     }
 
-    #[Route('/editOffre/{id}/edit', name:'deleteOffre', methods: ['DELETE'])]
+    #[Route('/{id}/delete', name:'deleteOffre', methods: ['POST'])]
     public function delete(EntityManagerInterface $entityManager, Offre $offre): Response
     {
         $entityManager->remove($offre);

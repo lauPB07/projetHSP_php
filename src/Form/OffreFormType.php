@@ -33,14 +33,6 @@ class OffreFormType extends AbstractType
                 'class' => TypeOffre::class,
 'choice_label' => 'nom',
             ])
-            ->add('ref_userCreer', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-                'query_builder' => function (EntityRepository $er) use ($options) {
-                    return $er->createQueryBuilder('u')
-                        ->where('u.id = :current_user_id') // Limite la sélection à l'utilisateur connecté
-                        ->setParameter('current_user_id', $options['user_id']);
-                }])
             ->add('Save', SubmitType::class)
         ;
 
@@ -51,7 +43,6 @@ class OffreFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Offre::class,
-            'user_id' => null,
             'entreprises' => [],
         ]);
     }
