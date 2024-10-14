@@ -105,4 +105,31 @@ class OffreController extends AbstractController
             'offres' => $offres,
         ]);
     }
+
+    #[Route('/editOffre/{id}/edit', name: 'editOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function editOffre(Offre $offre, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(OffreFormType::class, $offre);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->flush();
+            $this->addFlash('succes','L offre a bien été modifiée');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('offre/edit.html.twig', [
+            'offre' => $offre,
+            'form'=>$form,
+        ]);
+
+    }
+
+    #[Route('/editOffre/{id}/edit', name:'deleteOffre', methods: ['DELETE'])]
+    public function delete(EntityManagerInterface $entityManager, Offre $offre): Response
+    {
+        $entityManager->remove($offre);
+        $entityManager->flush();
+        $this->addFlash('success', 'L offre a bien été suprimée');
+        return $this->redirectToRoute('home');
+
+    }
 }

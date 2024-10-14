@@ -22,7 +22,6 @@ class OffreFormType extends AbstractType
             ->add('description')
             ->add('mission_lier')
             ->add('salaire')
-            ->add('type')
             ->add('est_cloturer')
             ->add('ref_EntrepriseCreer', EntityType::class, [
                 'class' => FicheEntreprise::class,
