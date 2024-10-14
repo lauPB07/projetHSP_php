@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\FicheEntreprise;
 use App\Entity\User;
 use App\Form\FicheEntrepriseFormType;
+use App\Form\OffreFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -60,10 +61,20 @@ class FicheEntrepriseController extends AbstractController
         ]);
     }
 
-    #[Route('/showFicheEntreprise', name: 'showFicheEntreprise')]
-    public function show()
+    #[Route('/editFicheEntreprise/{id}/edit', name: 'editFicheEntreprise')]
+    public function edit(FicheEntreprise $ficheEntreprise,Request $request, EntityManagerInterface $entityManager):Response
     {
-
+        $form = $this->createForm(FicheEntrepriseFormType::class, $ficheEntreprise);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->flush();
+            $this->addFlash('succes','L offre a bien été modifiée');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('fiche_entreprise/edit.html.twig', [
+            'ficheEntreprise' => $ficheEntreprise,
+            'form'=>$form,
+        ]);
     }
 
 
