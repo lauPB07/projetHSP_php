@@ -41,7 +41,7 @@
                                     <li><a href="{{ path('showProjets') }}">Projets</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Evenements</a></li>
+                            <li><a href="{{ path('event') }}">Evenements</a></li>
                             <li><a href="{{ path('profilEntreprise') }}">Profil Entreprise</a></li>
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
@@ -52,7 +52,7 @@
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-            <di>
+            <div>
             {% if app.user is null %}
             <a class="cta-btn" href="{{ path('app_login') }}">Connexion/Inscription</a>
             {% else  %}
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
             {% endif %}
-            </di>
+            </div>
 
 
         </div>
