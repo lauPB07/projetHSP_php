@@ -16,10 +16,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class EventController extends AbstractController
 {
     #[Route('/event', name: 'event')]
-    public function index(): Response
+    public function index(EntityManagerInterface $em,Security $security): Response
     {
+        $events = $em->getRepository(Event::class)->findAll();
         return $this->render('event/index.html.twig', [
             'controller_name' => 'EventController',
+            'events' => $events,
         ]);
     }
 
@@ -67,7 +69,7 @@ class EventController extends AbstractController
     {
         $event = new Event();
         $user = $security->getUser();
-        $form = $this->createForm(EventFormType::class);
+        $form = $this->createForm(EventFormType::class,$event);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if($user){
