@@ -129,4 +129,14 @@ class OffreController extends AbstractController
         return $this->redirectToRoute('home');
 
     }
+
+    #[Route('/offre/{id}/participant',name: 'participantOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function tableParticipant(int $id, OffreRepository $offreRepository): Response
+    {
+        $offre = $offreRepository->find($id);
+        $participants = $offre->getUsers();
+        return $this->render('offre/participant.html.twig', [
+            'participants' => $participants,
+        ]);
+    }
 }
