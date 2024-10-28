@@ -28,8 +28,7 @@ class Offre
     #[ORM\Column(nullable: true)]
     private ?float $salaire = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
+
 
     #[ORM\Column]
     private ?bool $est_cloturer = null;
@@ -50,17 +49,18 @@ class Offre
     #[ORM\ManyToMany(targetEntity: FicheEntreprise::class, inversedBy: 'offres')]
     private Collection $ref_EntrepriseCreer;
 
-    /**
-     * @var Collection<int, FicheEntreprise>
-     */
-    #[ORM\ManyToMany(targetEntity: FicheEntreprise::class, mappedBy: 'ref_OffreCreer')]
-    private Collection $ficheEntreprises;
+
+
+    #[ORM\ManyToOne(inversedBy: 'offres')]
+    private ?TypeOffre $ref_typeOffre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'offres')]
+    private ?User $ref_userCreer = null;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->ref_EntrepriseCreer = new ArrayCollection();
-        $this->ficheEntreprises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,17 +116,6 @@ class Offre
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function isEstCloturer(): ?bool
     {
@@ -215,29 +204,27 @@ class Offre
         return $this;
     }
 
-    /**
-     * @return Collection<int, FicheEntreprise>
-     */
-    public function getFicheEntreprises(): Collection
+
+    public function getRefTypeOffre(): ?TypeOffre
     {
-        return $this->ficheEntreprises;
+        return $this->ref_typeOffre;
     }
 
-    public function addFicheEntreprise(FicheEntreprise $ficheEntreprise): static
+    public function setRefTypeOffre(?TypeOffre $ref_typeOffre): static
     {
-        if (!$this->ficheEntreprises->contains($ficheEntreprise)) {
-            $this->ficheEntreprises->add($ficheEntreprise);
-            $ficheEntreprise->addRefOffreCreer($this);
-        }
+        $this->ref_typeOffre = $ref_typeOffre;
 
         return $this;
     }
 
-    public function removeFicheEntreprise(FicheEntreprise $ficheEntreprise): static
+    public function getRefUserCreer(): ?User
     {
-        if ($this->ficheEntreprises->removeElement($ficheEntreprise)) {
-            $ficheEntreprise->removeRefOffreCreer($this);
-        }
+        return $this->ref_userCreer;
+    }
+
+    public function setRefUserCreer(?User $ref_userCreer): static
+    {
+        $this->ref_userCreer = $ref_userCreer;
 
         return $this;
     }

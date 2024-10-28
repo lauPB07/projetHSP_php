@@ -76,13 +76,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $formationEtudiant = null;
 
     /**
-     * @var Collection<int, QuestionSupport>
+     * @var Collection<int, Offre>
      */
-    #[ORM\OneToMany(targetEntity: QuestionSupport::class, mappedBy: 'ref_user')]
-    private Collection $questionSupports;
+    #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'ref_userCreer')]
+    private Collection $offres;
 
-    #[ORM\ManyToOne(inversedBy: 'ref_admin')]
-    private ?QuestionSupport $questionSupport = null;
+
 
 
 
@@ -93,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ref_offrePostule = new ArrayCollection();
         $this->ref_creerEvent = new ArrayCollection();
         $this->events = new ArrayCollection();
-        $this->questionSupports = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
 
@@ -431,8 +430,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        return $this->ref_role;
-        // TODO: Implement getRoles() method.
+        $roles = [];
+
+        if ($this->ref_role) {
+            $roles[] = $this->ref_role->getNomRole();
+        }
+
+        return $roles;
     }
 
     public function eraseCredentials(): void
@@ -485,46 +489,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         // TODO: Implement getPassword() method.
+        return $this->mdp;
     }
 
     /**
-     * @return Collection<int, QuestionSupport>
+     * @return Collection<int, Offre>
      */
-    public function getQuestionSupports(): Collection
+    public function getOffres(): Collection
     {
-        return $this->questionSupports;
+        return $this->offres;
     }
 
-    public function addQuestionSupport(QuestionSupport $questionSupport): static
+    public function addOffre(Offre $offre): static
     {
-        if (!$this->questionSupports->contains($questionSupport)) {
-            $this->questionSupports->add($questionSupport);
-            $questionSupport->setRefUser($this);
+        if (!$this->offres->contains($offre)) {
+            $this->offres->add($offre);
+            $offre->setRefUserCreer($this);
         }
 
         return $this;
     }
 
-    public function removeQuestionSupport(QuestionSupport $questionSupport): static
+    public function removeOffre(Offre $offre): static
     {
-        if ($this->questionSupports->removeElement($questionSupport)) {
+        if ($this->offres->removeElement($offre)) {
             // set the owning side to null (unless already changed)
-            if ($questionSupport->getRefUser() === $this) {
-                $questionSupport->setRefUser(null);
+            if ($offre->getRefUserCreer() === $this) {
+                $offre->setRefUserCreer(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getQuestionSupport(): ?QuestionSupport
-    {
-        return $this->questionSupport;
-    }
-
-    public function setQuestionSupport(?QuestionSupport $questionSupport): static
-    {
-        $this->questionSupport = $questionSupport;
 
         return $this;
     }

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offres de stages{% endblock %}
+
+{% block body %}
+    <h1>Offres d'emplois</h1>
+
+    {% if offres is empty %}
+        <p>Aucune offre d'emplois créer pour le moment.</p>
+    {% else %}
+        {% for offre in offres %}
+            <div class="card">
+                <div class="card-header">
+                    {{ offre.titre }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Le type d'offre: {{ offre.reftypeOffre.nom}}</h5>
+                    <p class="card-text">Description de l'offre : {{ offre.description }}</p>
+                    <p class="card-text">Les missions lier: {{ offre.missionlier }}</p>
+                    <p class="card-text">Le salaire: {{ offre.salaire}}</p>
+                    {% if app.user and offre.refUserCreer.id == app.user.id %}
+                        <a href="{{path('editOffre', {id:offre.id}) }}" class="btn btn-primary">Editer</a>
+                        <form action="{{ path('deleteOffre', {id:offre.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger" >Supprimer</button>
+                        </form>
+                        <a href="#" class="btn btn-secondary">Voir postulant</a>
+                    {% else %}
+                        <p>Vous ne pouvez pas éditer cette offre car vous n'êtes pas le créateur.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

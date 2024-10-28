@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormTypeMedecin;
+use App\Repository\RoleRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -24,7 +25,7 @@ class RegistrationControllerMedecin extends AbstractController
     }
 
     #[Route('/registerMedecin', name: 'app_registerMedecin')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,RoleRepository $roleRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormTypeMedecin::class, $user);
@@ -36,12 +37,12 @@ class RegistrationControllerMedecin extends AbstractController
 
             // encode the plain password
             $user->setMdp($userPasswordHasher->hashPassword($user, $plainPassword));
-
+            $user->setRefRole($roleRepository->find($form->get('ref_role')->getData()));
             $entityManager->persist($user);
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('app_verifyEmailMedecin', $user,
                 (new TemplatedEmail())
                     ->from(new Address('projethspcontact@gmail.com', 'projethspcontact'))
                     ->to((string) $user->getEmail())

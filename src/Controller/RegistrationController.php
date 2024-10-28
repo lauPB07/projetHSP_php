@@ -35,11 +35,11 @@ class RegistrationController extends AbstractController
 
             // encode the plain password
             $user->setMdp($userPasswordHasher->hashPassword($user, $plainPassword));
-            $user->setRefRole($roleRepository->find($form->get('role')->getData()));
+            $user->setRefRole($roleRepository->find($form->get('ref_role')->getData()));
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('app_verifyEmailPartenaire', $user,
                 (new TemplatedEmail())
                     ->from(new Address('projethspcontact@gmail.com', 'projethspcontact'))
                     ->to((string) $user->getEmail())
