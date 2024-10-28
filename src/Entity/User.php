@@ -75,7 +75,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $formationEtudiant = null;
 
+    /**
+     * @var Collection<int, QuestionSupport>
+     */
+    #[ORM\OneToMany(targetEntity: QuestionSupport::class, mappedBy: 'ref_user')]
+    private Collection $questionSupports;
 
+    #[ORM\ManyToOne(inversedBy: 'ref_admin')]
+    private ?QuestionSupport $questionSupport = null;
 
 
 
@@ -86,6 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ref_offrePostule = new ArrayCollection();
         $this->ref_creerEvent = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->questionSupports = new ArrayCollection();
     }
 
 
@@ -477,5 +485,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         // TODO: Implement getPassword() method.
+    }
+
+    /**
+     * @return Collection<int, QuestionSupport>
+     */
+    public function getQuestionSupports(): Collection
+    {
+        return $this->questionSupports;
+    }
+
+    public function addQuestionSupport(QuestionSupport $questionSupport): static
+    {
+        if (!$this->questionSupports->contains($questionSupport)) {
+            $this->questionSupports->add($questionSupport);
+            $questionSupport->setRefUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionSupport(QuestionSupport $questionSupport): static
+    {
+        if ($this->questionSupports->removeElement($questionSupport)) {
+            // set the owning side to null (unless already changed)
+            if ($questionSupport->getRefUser() === $this) {
+                $questionSupport->setRefUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getQuestionSupport(): ?QuestionSupport
+    {
+        return $this->questionSupport;
+    }
+
+    public function setQuestionSupport(?QuestionSupport $questionSupport): static
+    {
+        $this->questionSupport = $questionSupport;
+
+        return $this;
     }
 }

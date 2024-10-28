@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New QuestionSupport{% endblock %}
+
+{% block body %}
+    <h1>Create new QuestionSupport</h1>
+
+    {{ include('question_support/_form.html.twig') }}
+
+    <a href="{{ path('app_question_support_index') }}">back to list</a>
+{% endblock %}
