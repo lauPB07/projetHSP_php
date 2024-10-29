@@ -14,7 +14,11 @@
                                 <i class="fa fa-globe text-navy mid-icon"></i>
                             </div>
                             <h2>Bienvenue sur le forum</h2>
-                            <a href="#" class="btn btn-info">Je pose ma question</a>
+                            {% if app.user is null %}
+                            <a href="{{ path('app_login') }}" class="btn btn-info">Je pose ma question</a>
+                            {% else %}
+                            <a href="{{ path('createPost') }}" class="btn btn-info">Je pose ma question</a>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -44,7 +48,7 @@
                                 </div>
                                 <div class="col-md-1 forum-info">
                                     <div>
-                                        <small>{{ question.refUser.nom }} {{ question.refUser.prenom }}</small>
+                                        <small>{{ question.refuser.nom }} {{ question.refuser.prenom }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-1 forum-info">
