@@ -16,6 +16,7 @@
                     <li><a href="{{ path('home') }}" class="active">Home</a></li>
                     <li><a href="#">Actualité</a></li>
                     <li><a href="#">Contact</a></li>
+                    <li><a href="#">Forum</a></li>
 
                     {% if app.user %}
                         {% if 'Etudiant' in app.user.roles %}
@@ -60,7 +61,18 @@
                         <span>{{ app.user.nom }}</span>
                         <i class="bi bi-chevron-down toggle-dropdown"></i>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Information du compte</a></li>
+                        {% if 'Partenaire/Entreprise' in app.user.roles %}
+                            <li><a class="dropdown-item" href="{{path('registerEditPartenaire', {id:app.user.id}) }}">Information du compte</a></li>
+                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                        {% endif %}
+                        {% if 'Medecin' in app.user.roles %}
+                            <li><a class="dropdown-item" href="#">Information du compte</a></li>
+                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                        {% endif %}
+                        {% if 'Etudiant' in app.user.roles %}
+                            <li><a class="dropdown-item" href="{{path('registerEditEtudiant', {id:app.user.id}) }}">Information du compte</a></li>
+                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                        {% endif %}
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                     </ul>
                 </li>

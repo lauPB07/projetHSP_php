@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information personnelles{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>Information personnelles</h1>
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.cv) }}
+    {{ form_row(form.formation_etudiant) }}
+
+
+    <button type="submit" class="btn">Save</button>
+
+{% endblock %}
