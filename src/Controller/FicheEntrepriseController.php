@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\FicheEntreprise;
 use App\Entity\User;
 use App\Form\FicheEntrepriseFormType;
@@ -75,6 +76,32 @@ class FicheEntrepriseController extends AbstractController
             'ficheEntreprise' => $ficheEntreprise,
             'form'=>$form,
         ]);
+    }
+
+    #[Route('/rattacherFicheEntreprise', name: 'rattacherFicheEntreprise')]
+    public function afficherToutetEntreprise(EntityManagerInterface $em): Response
+    {
+        $entreprises = $em->getRepository(FicheEntreprise::class)->findAll();
+        return $this->render('fiche_entreprise/attacherFicheEntreprise.html.twig', [
+            'controller_name' => 'EventController',
+            'entreprises' => $entreprises,
+        ]);
+    }
+
+    #[Route('/rattacherUserFicheEnt/{id}', name: 'rattacherUserFicheEnt', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function attacherUserFicheEntreprise(EntityManagerInterface $em, int $id, Security $security, EntityManagerInterface $manager ): Response
+    {
+        $entreprise = $em->getRepository(FicheEntreprise::class)->find($id);
+        $user = $security->getUser();
+        if ($user) {
+            $user->setRefEntreprise($entreprise);
+            $manager->persist($user);
+            $manager->flush();
+        }
+        $this->addFlash('success', 'La fiche entreprise a bien été attribué');
+        return $this->redirectToRoute('profilEntreprise');
+
+
     }
 
 

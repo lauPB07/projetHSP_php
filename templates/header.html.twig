@@ -33,17 +33,19 @@
                             <li><a href="#">Evenements</a></li>
                         {% endif %}
                         {% if 'Partenaire/Entreprise' in app.user.roles  %}
-                            <li class="dropdown">
-                                <a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="{{ path('CreateOffre') }}">Créer une offre</a></li>
-                                    <li><a href="{{ path('showStages') }}">Stages</a></li>
-                                    <li><a href="{{ path('showEmplois') }}">Emplois</a></li>
-                                    <li><a href="{{ path('showProjets') }}">Projets</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{ path('event') }}">Evenements</a></li>
                             <li><a href="{{ path('profilEntreprise') }}">Profil Entreprise</a></li>
+                            {% if app.user.getRefEntreprise is not null  %}
+                                <li class="dropdown">
+                                    <a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <ul>
+                                        <li><a href="{{ path('CreateOffre') }}">Créer une offre</a></li>
+                                        <li><a href="{{ path('showStages') }}">Stages</a></li>
+                                        <li><a href="{{ path('showEmplois') }}">Emplois</a></li>
+                                        <li><a href="{{ path('showProjets') }}">Projets</a></li>
+                                    </ul>
+                                </li>
+                            <li><a href="{{ path('event') }}">Evenements</a></li>
+                             {% endif%}
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
                             <li><a href="#">Evenements</a></li>

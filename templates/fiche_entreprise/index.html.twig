@@ -14,7 +14,7 @@
         {% else %}
             <p>Vous n'êtes pas associé à une fiche entreprise.</p>
             <a href="{{ path('createFicheEntreprise') }}" class="btn btn-secondary">Créer une fiche entreprise</a>
-            <a href="#" class="btn btn-secondary">Se rattacher à une fiche entreprise</a>
+            <a href="{{ path('rattacherFicheEntreprise') }}" class="btn btn-secondary">Se rattacher à une fiche entreprise</a>
         {% endif %}
     </div>
 {% endblock %}
