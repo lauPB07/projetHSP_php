@@ -11,6 +11,8 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
@@ -29,7 +31,7 @@ class RegistrationControllerEtudiant extends AbstractController
     }
 
     #[Route('/registerEtudiant', name: 'app_registerEtudiant')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, RoleRepository $roleRepository): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, RoleRepository $roleRepository, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormTypeEtudiant::class, $user);
@@ -43,22 +45,29 @@ class RegistrationControllerEtudiant extends AbstractController
             $user->setMdp($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setRefRole($roleRepository->find($form->get('ref_role')->getData()));
             $entityManager->persist($user);
-            $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verifyEmailEtudiant', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('projethspcontact@gmail.com', 'projethspcontact'))
+               $email = (new TemplatedEmail())
+                    ->from('projethspcontact@gmail.com')
                     ->to((string) $user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
+                    ->htmlTemplate('registration/confirmation_email.html.twig');
+
+            try {
+                $mailer->send($email);
+
+            } catch (TransportExceptionInterface $e) {
+                $this->addFlash("danger", $email->generateMessageId() ." : l'email en question n'a pas recu votre envoi");
+            }
+
+            $entityManager->flush();
 
             // do anything else you need here, like send an email
-
             return $this->redirectToRoute('home');
         }
 
+
+        $this->addFlash("danger"," : bbbbbb");
         return $this->render('registration/registerEtudiant.html.twig', [
             'registrationForm' => $form,
         ]);

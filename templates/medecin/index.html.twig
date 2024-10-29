@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registre des Medecins{% endblock %}
+
+{% block body %}
+    <h1>Registre des Medecins</h1>
+
+
+
+<div>
+<table>
+<thead>
+<tr>
+    <th class="min-w-200px px-0">nom</th>
+    <th class="min-w-125px">prenom</th>
+     <th class="min-w-125px">email</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td>{{ medecin.nom }}</td>
+        <td>{{ medecin.prenom }}</td>
+        <td>{{ medecin.email }}</td>
+    </tr>
+
+
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}
