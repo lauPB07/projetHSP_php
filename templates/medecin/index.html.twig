@@ -5,10 +5,8 @@
 {% block body %}
     <h1>Registre des Medecins</h1>
 
-
-
 <div>
-<table>
+<table id="registreMedecin">
 <thead>
 <tr>
     <th class="min-w-200px px-0">nom</th>
@@ -18,15 +16,18 @@
     </thead>
     <tbody>
 
+    {% for medecin in medecins %}
     <tr>
         <td>{{ medecin.nom }}</td>
         <td>{{ medecin.prenom }}</td>
         <td>{{ medecin.email }}</td>
     </tr>
-
-
+    {% endfor %}
     </tbody>
     </table>
+
 </div>
 
 {% endblock %}
+
+

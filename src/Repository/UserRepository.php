@@ -42,10 +42,10 @@ class UserRepository extends ServiceEntityRepository
 //    }
 
 
-    public function findUsersByRole(int $roleId): array
+    public function findUsersByRole($roleId)
     {
-        return $this->createQueryBuilder('user')
-            ->where('user.ref_role = :roleId')
+        return $this->createQueryBuilder('u')
+            ->where('u.ref_role = :roleId')
             ->setParameter('roleId', $roleId)
             ->getQuery()
             ->getResult();

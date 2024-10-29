@@ -35,8 +35,11 @@ class UserSecurityController extends AbstractController
     public function RegistreMedecin (UserRepository $userRepository): Response
     {
 
+        $medecins = $userRepository->findUsersByRole(2);
+
+
             return $this->render('/medecin/index.html.twig',[
-                'medecin'=>$userRepository->findAll()
+                'medecins'=>$medecins
             ]);
 
     }
