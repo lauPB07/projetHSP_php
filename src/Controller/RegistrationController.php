@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\User;
+use App\Form\EventFormType;
 use App\Form\RegistrationFormType;
 use App\Repository\RoleRepository;
 use App\Security\EmailVerifier;
@@ -74,5 +76,21 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/editPartenaire/{id}', name: 'registerEditPartenaire', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function edit(User $user, Request $request, EntityManagerInterface $entityManager)
+    {
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->flush();
+            $this->addFlash('succes','L evenement a bien été modifiée');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('registration/editPartenaire.html.twig', [
+            'user' => $user,
+            'form'=>$form,
+        ]);
     }
 }

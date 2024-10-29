@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information personnelle{% endblock %}
+
+{% block body %}
+    <h1>Information personnelle</h1>
+
+    {{ form_errors(form) }}
+
+
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.ref_hopital) }}
+    {{ form_row(form.ref_spe) }}
+
+
+    <button type="submit" class="btn">Save</button>
+
+{% endblock %}

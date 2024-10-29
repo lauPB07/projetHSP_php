@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer un evenement{% endblock %}
+{% block body %}
+    {{ form(form) }}
+    <a class="btn btn-primary" href="{{ path('event') }}">Retour</a>
+{% endblock %}

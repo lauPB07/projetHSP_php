@@ -103,7 +103,7 @@ class OffreController extends AbstractController
         ]);
     }
 
-    #[Route('/editOffre/{id}/edit', name: 'editOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    #[Route('/editOffre/{id}/edit', name: 'editEvent', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
     public function editOffre(Offre $offre, Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OffreFormType::class, $offre);
@@ -128,5 +128,15 @@ class OffreController extends AbstractController
         $this->addFlash('success', 'L offre a bien été suprimée');
         return $this->redirectToRoute('home');
 
+    }
+
+    #[Route('/offre/{id}/participant',name: 'participantOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function tableParticipant(int $id, OffreRepository $offreRepository): Response
+    {
+        $offre = $offreRepository->find($id);
+        $participants = $offre->getUsers();
+        return $this->render('offre/participant.html.twig', [
+            'participants' => $participants,
+        ]);
     }
 }

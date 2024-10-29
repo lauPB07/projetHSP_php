@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Entity\Offre;
+use App\Form\EventFormType;
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,11 +16,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class EventController extends AbstractController
 {
-    #[Route('/event', name: 'app_event')]
-    public function index(): Response
+    #[Route('/event', name: 'event')]
+    public function index(EntityManagerInterface $em,Security $security): Response
     {
+        $events = $em->getRepository(Event::class)->findAll();
         return $this->render('event/index.html.twig', [
             'controller_name' => 'EventController',
+            'events' => $events,
         ]);
     }
 
@@ -56,6 +63,52 @@ class EventController extends AbstractController
 
         // Retourner les événements en JSON
         return new JsonResponse(['events' => $eventData]);
+    }
+
+    #[Route('/createEvent', name: 'createEvent')]
+    public function create(Request $request, EntityManagerInterface $em, Security $security)
+    {
+        $event = new Event();
+        $user = $security->getUser();
+        $form = $this->createForm(EventFormType::class,$event);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($user){
+                $event->addUser($user);
+            }
+            $em->persist($event);
+            $em->flush();
+            $this->addFlash('success', 'L evenement a bien été créée');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('/event/createEvent.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/editOffre/{id}/edit', name: 'editOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function editOffre(Event $event, Request $request, EntityManagerInterface $entityManager): Response{
+        $form = $this->createForm(EventFormType::class, $event);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->flush();
+            $this->addFlash('succes','L evenement a bien été modifiée');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('event/edit.html.twig', [
+            'event' => $event,
+            'form'=>$form,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name:'deleteEvent', methods: ['POST'])]
+    public function delete(EntityManagerInterface $entityManager, Event $event): Response
+    {
+        $entityManager->remove($event);
+        $entityManager->flush();
+        $this->addFlash('success', 'L evenement a bien été suprimée');
+        return $this->redirectToRoute('home');
+
     }
 
 }
