@@ -16,7 +16,7 @@
                     <li><a href="{{ path('home') }}" class="active">Home</a></li>
                     <li><a href="#">Actualité</a></li>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#">Forum</a></li>
+                    <li><a href="{{ path('app_forum') }}">Forum</a></li>
 
                     {% if app.user %}
                         {% if 'Etudiant' in app.user.roles %}
