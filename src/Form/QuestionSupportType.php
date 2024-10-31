@@ -19,10 +19,6 @@ class QuestionSupportType extends AbstractType
             ->add('date', null, [
                 'widget' => 'single_text',
             ])
-            ->add('ref_user', EntityType::class, [
-                'class' => user::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 

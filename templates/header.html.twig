@@ -15,7 +15,7 @@
                     {# Ce bloc s'affiche pour tous les utilisateurs, connectés ou non #}
                     <li><a href="{{ path('home') }}" class="active">Home</a></li>
                     <li><a href="#">Actualité</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{ path('app_question_support_index') }}">Contact</a></li>
                     <li><a href="{{ path('app_forum') }}">Forum</a></li>
 
                     {% if app.user %}

@@ -15,10 +15,6 @@ class ReponseSupportType extends AbstractType
     {
         $builder
             ->add('reponse')
-            ->add('ref_admin', EntityType::class, [
-                'class' => user::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 

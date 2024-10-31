@@ -27,15 +27,20 @@
                         <td>{{ question_support.message }}</td>
                         <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ question_support.reponse }}</td>
-
-                        {% if question_support.reponse %}
-                            <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
-                            <a href="{{ path('app_reponse_support_edit', {'id': question_support.id}) }}">Modifier</a>
-                        {% else %}
-                            <a href="{{ path('app_reponse_support_edit', {'id': question_support.id}) }}">Nouvelle Réponse</a>
-                        {% endif %}
+                        <td>
+                            {% if question_support.reponse %}
+                                {% if question_support.getRefAdmin().getId() == app.user.id %}
+                                    <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
+                                    <a href="{{ path('app_question_support_reponse', {'id': question_support.id}) }}">Modifier</a>
+                                {% else %}
+                                    <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('app_question_support_reponse', {'id': question_support.id}) }}">Nouvelle Réponse</a>
+                            {% endif %}
+                        </td>
                     {% else %}
-                        {% if question_support.ref_user == app.user.id %}
+                        {% if question_support.getRefUser().getId() == app.user.id %}
                             <td>{{ question_support.id }}</td>
                             <td>{{ question_support.titre }}</td>
                             <td>{{ question_support.message }}</td>
