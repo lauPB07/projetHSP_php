@@ -12,24 +12,46 @@
                 <th>Titre</th>
                 <th>Message</th>
                 <th>Date</th>
+                <th>Reponse</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for question_support in question_supports %}
+
             <tr>
-                <td>{{ question_support.id }}</td>
-                <td>{{ question_support.titre }}</td>
-                <td>{{ question_support.message }}</td>
-                <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
-                    <a href="{{ path('app_question_support_edit', {'id': question_support.id}) }}">edit</a>
-                </td>
+                {% if app.user %}
+                    {% if 'Admin' in app.user.roles %}
+                        <td>{{ question_support.id }}</td>
+                        <td>{{ question_support.titre }}</td>
+                        <td>{{ question_support.message }}</td>
+                        <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ question_support.reponse }}</td>
+
+                        {% if question_support.reponse %}
+                            <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
+                            <a href="{{ path('app_reponse_support_edit', {'id': question_support.id}) }}">Modifier</a>
+                        {% else %}
+                            <a href="{{ path('app_reponse_support_edit', {'id': question_support.id}) }}">Nouvelle Réponse</a>
+                        {% endif %}
+                    {% else %}
+                        {% if question_support.ref_user == app.user.id %}
+                            <td>{{ question_support.id }}</td>
+                            <td>{{ question_support.titre }}</td>
+                            <td>{{ question_support.message }}</td>
+                            <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ question_support.reponse }}</td>
+                            <td>
+                                <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
+                                <a href="{{ path('app_question_support_edit', {'id': question_support.id}) }}">Modifier</a>
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
