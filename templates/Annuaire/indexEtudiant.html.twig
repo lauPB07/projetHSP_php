@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Spécialité</th>
+            <th>Etablissement</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in user %}
+            {% if user.getRefRole() is not null and user.getRefRole().getId() == 1 %}
+                    <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.getRefSpe()}}</td>
+                    <td>{{ user.getRefEtablissement()}}</td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
