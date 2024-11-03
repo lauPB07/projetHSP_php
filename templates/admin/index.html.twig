@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annuaire Etudiant{% endblock %}
+{% block title %}Annuaire Medecin{% endblock %}
 
 {% block body %}
-    <h1>Annuaire Etudiant</h1>
+    <h1>Annuaire Medecin</h1>
 
     <table class="table">
         <thead>
@@ -12,21 +12,26 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>Email</th>
-            <th>CV</th>
-            <th>Formation</th>
+            <th>Role</th>
+            <th>Validation</th>
         </tr>
         </thead>
         <tbody>
         {% for user in user %}
-            {% if user.getRefRole() is not null and user.getRefRole().getId() == 1 %}
+
+            {% if user.isValider() == false %}
+
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.nom }}</td>
                     <td>{{ user.prenom }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.cv}}</td>
-                    {{ dump(user.getCv()) }}
-                    <td>{{ user.formationEtudiant}}</td>
+                    {% if user.getRefRole() %}
+                        <td>{{ user.getRefRole().getNomRole()}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <th><a href="{{ path('app_valider', {'id': user.id}) }}">Valider le compte</a></th>
                 </tr>
             {% endif %}
         {% else %}

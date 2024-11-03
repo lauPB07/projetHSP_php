@@ -51,6 +51,9 @@
                             <li><a href="#">Evenements</a></li>
                             <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
                         {% endif %}
+                        {% if 'Admin' in app.user.roles %}
+                            <li><a href="{{ path('app_admin') }}">Vailider Compte</a></li>
+                        {% endif %}
                     {% endif %}
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -65,15 +68,15 @@
                     <ul class="dropdown-menu">
                         {% if 'Partenaire/Entreprise' in app.user.roles %}
                             <li><a class="dropdown-item" href="{{path('registerEditPartenaire', {id:app.user.id}) }}">Information du compte</a></li>
-                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
                             <li><a class="dropdown-item" href="#">Information du compte</a></li>
-                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         {% if 'Etudiant' in app.user.roles %}
                             <li><a class="dropdown-item" href="{{path('registerEditEtudiant', {id:app.user.id}) }}">Information du compte</a></li>
-                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                     </ul>
