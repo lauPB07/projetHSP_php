@@ -63,6 +63,26 @@ class OffreController extends AbstractController
             'offres' => $offres,
         ]);
     }
+    #[Route('/showAllEmplois', name: 'showAllEmplois')]
+    public function showAllEmplois( OffreRepository $repository): Response
+    {
+        // Récupérer toutes les offres de type "Stage"
+        $offres = $repository->findAllEmplois();
+
+        return $this->render('offre/showAllEmplois.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
+    #[Route('/showAllProjets', name: 'showAllProjets')]
+    public function showAllProjets( OffreRepository $repository): Response
+    {
+        // Récupérer toutes les offres de type "Stage"
+        $offres = $repository->findAllProjets();
+
+        return $this->render('offre/showAllProjets.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
 
     #[Route('/showStage', name: 'showStages')]
     public function showStages(OffreRepository $repository, Security $security): Response

@@ -25,6 +25,24 @@ class OffreRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findAllEmplois()
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.ref_typeOffre', 't')
+            ->where('t.nom = :type')
+            ->setParameter('type', 'Emplois')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAllProjets()
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.ref_typeOffre', 't')
+            ->where('t.nom = :type')
+            ->setParameter('type', 'Projets')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findStagesByEntreprise($entrepriseId)
     {
