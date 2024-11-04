@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Offre;
+use App\Entity\User;
 use App\Form\EventFormType;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -109,6 +111,66 @@ class EventController extends AbstractController
         $this->addFlash('success', 'L evenement a bien été suprimée');
         return $this->redirectToRoute('home');
 
+    }
+
+    #[Route('/{id}/participe', name:'participeEvent', methods: ['POST','GET'])]
+    public function participe(EntityManagerInterface $entityManager, Security $security, EventRepository $eventRepository, int $id): Response
+    {
+        // Récupération de l'utilisateur connecté
+        $user = $security->getUser();
+        if (!$user) {
+            return new Response('Utilisateur non connecté', Response::HTTP_FORBIDDEN);
+        }
+
+        // Récupération de l'événement par son ID
+        $event = $eventRepository->find($id);
+        if (!$event) {
+            return new Response('Événement non trouvé', Response::HTTP_NOT_FOUND);
+        }
+
+        // Ajout de l'utilisateur à l'événement
+        $event->addRefUserParticipe($user);
+        $event->setNbPlace(-1);
+
+        // Persistance en base de données
+        $entityManager->persist($event);
+        $entityManager->flush();
+        $this->addFlash("success", "Vous etes bien inscrit a l'evenement");
+
+        return new Response('Utilisateur ajouté à l\'événement', Response::HTTP_OK);
+    }
+    #[Route('/{id}/desincriptionEvent', name:'desincriptionEvent', methods: ['POST','GET'])]
+    public function desinscrire(EntityManagerInterface $entityManager, Security $security, EventRepository $eventRepository, int $id): Response
+    {
+        // Récupération de l'utilisateur connecté
+        $user = $security->getUser();
+        if (!$user) {
+            return new Response('Utilisateur non connecté', Response::HTTP_FORBIDDEN);
+        }
+
+        // Récupération de l'événement par son ID
+        $event = $eventRepository->find($id);
+        if (!$event) {
+            return new Response('Événement non trouvé', Response::HTTP_NOT_FOUND);
+        }
+
+        // Vérification si l'utilisateur est inscrit à l'événement
+        if (!$event->getRefUserParticipe()->contains($user)) {
+            $this->addFlash("warning", "Vous n'êtes pas inscrit à cet événement");
+            return new Response('Utilisateur non inscrit', Response::HTTP_BAD_REQUEST);
+        }
+
+        // Retrait de l'utilisateur de l'événement
+        $event->removeRefUserParticipe($user);
+        $event->setNbPlace(+1);
+
+
+        // Persistance en base de données
+        $entityManager->persist($event);
+        $entityManager->flush();
+
+        $this->addFlash("success", "Vous vous êtes désinscrit de l'événement");
+        return new Response('Utilisateur retiré de l\'événement', Response::HTTP_OK);
     }
 
 }

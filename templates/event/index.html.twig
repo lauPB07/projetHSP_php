@@ -16,6 +16,8 @@
                 <th>Description</th>
                 <th>Date</th>
                 <th>Nombre de places</th>
+                <th> Participez a l'event</th>
+                <th> Desinscription a l'event</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +29,19 @@
                     <td>{{ event.description }}</td>
                     <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
                     <td>{{ event.nbPlace }}</td>
+                    <td>
+                        <form action="{{ path('participeEvent', {id:event.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="PARTICIPER">
+                            <button type="submit" class="btn btn-success" >participer</button>
+                        </form>
+                    </td><td>
+                        <form action="{{ path('desincriptionEvent', {id:event.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="PARTICIPER">
+                            <button type="submit" class="btn btn-danger" >desinscription</button>
+                        </form>
+                    </td>
+
+
 
                     {% set userInEvent = false %}
                     {% for user in event.users %}

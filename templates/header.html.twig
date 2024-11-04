@@ -23,7 +23,7 @@
                             <li><a href={{ path('app_registre_medecin') }}>Doctors</a></li>
                             <li><a href="#">Forum de discussion</a></li>
                             <li class="dropdown">
-                                <a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <a href="{{ path('event') }}"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Stages</a></li>
                                     <li><a href="#">Emplois</a></li>
@@ -48,7 +48,7 @@
                              {% endif%}
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
-                            <li><a href="#">Evenements</a></li>
+                            <li><a href="{{ path('event') }}">Evenements</a></li>
                             <li><a href="#">Profil Etudiant</a></li>
                         {% endif %}
                     {% endif %}

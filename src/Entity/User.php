@@ -396,7 +396,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->events;
     }
 
-    public function addEvent(Event $event): static
+    public function addEvent(Event $event): Event
     {
         if (!$this->events->contains($event)) {
             $this->events->add($event);

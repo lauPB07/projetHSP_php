@@ -8,26 +8,31 @@
 <div>
 <table id="registreMedecin">
 <thead>
-<tr>
-    <th class="min-w-200px px-0">nom</th>
-    <th class="min-w-125px">prenom</th>
-     <th class="min-w-125px">email</th>
+    <tr>
+         <th class="min-w-200px px-0">nom</th>
+         <th class="min-w-125px">prenom</th>
+         <th class="min-w-125px">email</th>
     </tr>
     </thead>
     <tbody>
 
-    {% for medecin in medecins %}
+        {% for medecin in medecins %}
     <tr>
         <td>{{ medecin.nom }}</td>
         <td>{{ medecin.prenom }}</td>
         <td>{{ medecin.email }}</td>
     </tr>
-    {% endfor %}
+        {% endfor %}
     </tbody>
     </table>
 
 </div>
 
-{% endblock %}
+    <script>
+        $(document).ready(function() {
+            $('#registreMedecin').DataTable();
+        });
+    </script>
 
+{% endblock %}
 
