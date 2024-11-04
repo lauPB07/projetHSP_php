@@ -130,7 +130,7 @@ class EventController extends AbstractController
 
         // Ajout de l'utilisateur à l'événement
         $event->addRefUserParticipe($user);
-        $event->setNbPlace(-1);
+        $event->setNbPlace($event->getNbPlace()-1);
 
         // Persistance en base de données
         $entityManager->persist($event);
@@ -162,7 +162,7 @@ class EventController extends AbstractController
 
         // Retrait de l'utilisateur de l'événement
         $event->removeRefUserParticipe($user);
-        $event->setNbPlace(+1);
+        $event->setNbPlace($event->getNbPlace()+1);
 
 
         // Persistance en base de données
