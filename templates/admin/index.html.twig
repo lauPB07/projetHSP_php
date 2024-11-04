@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuaire Medecin{% endblock %}
+
+{% block body %}
+    <h1>Annuaire Medecin</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Validation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in user %}
+
+            {% if user.isValider() == false %}
+
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.email }}</td>
+                    {% if user.getRefRole() %}
+                        <td>{{ user.getRefRole().getNomRole()}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <th><a href="{{ path('app_valider', {'id': user.id}) }}">Valider le compte</a></th>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

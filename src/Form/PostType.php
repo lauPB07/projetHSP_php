@@ -2,30 +2,33 @@
 
 namespace App\Form;
 
-use App\Entity\QuestionSupport;
+use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class QuestionSupportType extends AbstractType
+class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('canal')
             ->add('titre')
-            ->add('message')
+            ->add('contenue')
             ->add('date', null, [
-                'widget' => 'single_text',
+                'widget' => 'single_text'
             ])
+            ->add('Save', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => QuestionSupport::class,
+            'data_class' => Post::class,
         ]);
     }
 }

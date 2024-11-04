@@ -15,19 +15,23 @@
                     {# Ce bloc s'affiche pour tous les utilisateurs, connectés ou non #}
                     <li><a href="{{ path('home') }}" class="active">Home</a></li>
                     <li><a href="#">Actualité</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Forum</a></li>
+                    <li><a href="{{ path('app_question_support_index') }}">Contact</a></li>
+                    <li><a href="{{ path('app_forum') }}">Forum</a></li>
 
                     {% if app.user %}
                         {% if 'Etudiant' in app.user.roles %}
+<<<<<<< HEAD
                             <li><a href={{ path('app_registre_medecin') }}>Doctors</a></li>
+=======
+                            <li><a href="{{ path('app_etudiant') }}">Annuair Medecin</a></li>
+>>>>>>> ff73e8931f97749f4f3d99b2820961b975b136e4
                             <li><a href="#">Forum de discussion</a></li>
                             <li class="dropdown">
                                 <a href="{{ path('event') }}"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
-                                    <li><a href="#">Stages</a></li>
-                                    <li><a href="#">Emplois</a></li>
-                                    <li><a href="#">Projets</a></li>
+                                    <li><a href="{{ path('showStages') }}">Stages</a></li>
+                                    <li><a href="{{ path('showEmplois') }}">Emplois</a></li>
+                                    <li><a href="{{ path('showProjets') }}">Projets</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Evenements</a></li>
@@ -48,8 +52,16 @@
                              {% endif%}
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
+<<<<<<< HEAD
                             <li><a href="{{ path('event') }}">Evenements</a></li>
                             <li><a href="#">Profil Etudiant</a></li>
+=======
+                            <li><a href="#">Evenements</a></li>
+                            <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
+                        {% endif %}
+                        {% if 'Admin' in app.user.roles %}
+                            <li><a href="{{ path('app_admin') }}">Vailider Compte</a></li>
+>>>>>>> ff73e8931f97749f4f3d99b2820961b975b136e4
                         {% endif %}
                     {% endif %}
                 </ul>
@@ -65,15 +77,15 @@
                     <ul class="dropdown-menu">
                         {% if 'Partenaire/Entreprise' in app.user.roles %}
                             <li><a class="dropdown-item" href="{{path('registerEditPartenaire', {id:app.user.id}) }}">Information du compte</a></li>
-                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
                             <li><a class="dropdown-item" href="#">Information du compte</a></li>
-                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         {% if 'Etudiant' in app.user.roles %}
                             <li><a class="dropdown-item" href="{{path('registerEditEtudiant', {id:app.user.id}) }}">Information du compte</a></li>
-                            <li><a class="dropdown-item" href="#">Modifier le mot de passe</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                     </ul>

@@ -9,16 +9,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class QuestionSupportType extends AbstractType
+class ReponseSupportType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('message')
-            ->add('date', null, [
-                'widget' => 'single_text',
-            ])
+            ->add('reponse')
         ;
     }
 

@@ -25,7 +25,7 @@ class Post
     #[ORM\Column(type: Types::TEXT)]
     private ?string $contenue = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     /**
@@ -98,7 +98,7 @@ class Post
     /**
      * @return Collection<int, User>
      */
-    public function getRefUser(): Collection
+    public function getRefUser(): User
     {
         return $this->ref_user;
     }

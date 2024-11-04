@@ -32,15 +32,12 @@ class QuestionSupport
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $reponse = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'questionSupport')]
-    private Collection $ref_admin;
+    #[ORM\ManyToOne(inversedBy: 'questionSupports')]
+    private ?User $ref_admin = null;
 
     public function __construct()
     {
-        $this->ref_admin = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -108,33 +105,16 @@ class QuestionSupport
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getRefAdmin(): Collection
+    public function getRefAdmin(): ?User
     {
         return $this->ref_admin;
     }
 
-    public function addRefAdmin(User $refAdmin): static
+    public function setRefAdmin(?User $ref_admin): static
     {
-        if (!$this->ref_admin->contains($refAdmin)) {
-            $this->ref_admin->add($refAdmin);
-            $refAdmin->setQuestionSupport($this);
-        }
+        $this->ref_admin = $ref_admin;
 
         return $this;
     }
 
-    public function removeRefAdmin(User $refAdmin): static
-    {
-        if ($this->ref_admin->removeElement($refAdmin)) {
-            // set the owning side to null (unless already changed)
-            if ($refAdmin->getQuestionSupport() === $this) {
-                $refAdmin->setQuestionSupport(null);
-            }
-        }
-
-        return $this;
-    }
 }

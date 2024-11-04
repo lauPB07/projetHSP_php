@@ -81,6 +81,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'ref_userCreer')]
     private Collection $offres;
 
+    /**
+     * @var Collection<int, QuestionSupport>
+     */
+    #[ORM\OneToMany(targetEntity: QuestionSupport::class, mappedBy: 'ref_admin')]
+    private Collection $questionSupports;
+
 
 
 
@@ -93,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ref_creerEvent = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->offres = new ArrayCollection();
+        $this->questionSupports = new ArrayCollection();
     }
 
 
@@ -516,6 +523,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($offre->getRefUserCreer() === $this) {
                 $offre->setRefUserCreer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QuestionSupport>
+     */
+    public function getQuestionSupports(): Collection
+    {
+        return $this->questionSupports;
+    }
+
+    public function addQuestionSupport(QuestionSupport $questionSupport): static
+    {
+        if (!$this->questionSupports->contains($questionSupport)) {
+            $this->questionSupports->add($questionSupport);
+            $questionSupport->setRefAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionSupport(QuestionSupport $questionSupport): static
+    {
+        if ($this->questionSupports->removeElement($questionSupport)) {
+            // set the owning side to null (unless already changed)
+            if ($questionSupport->getRefAdmin() === $this) {
+                $questionSupport->setRefAdmin(null);
             }
         }
 
