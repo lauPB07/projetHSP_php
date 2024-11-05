@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se rattacher a une fiche etablissement{% endblock %}
+{% block body %}
+    <div class="container mt-4">
+        <h1>Liste des etablissement</h1>
+
+        <table id="etablissementTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom de l'etablissement</th>
+                <th>Adresse</th>
+                <th>Adresse web</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for etablissement in etablissement %}
+                <tr>
+                    <td>{{ etablissement.nomEtablissement }}</td>
+                    <td>{{ etablissement.rue }} {{ etablissement.ville }} {{ etablissement.cp }} </td>
+                    <td>{{ etablissement.adresseWeb }}</td>
+                        <td>
+                            <a href="{{path('rattacherUserFicheEta', {id:etablissement.id}) }}" class="btn btn-primary btn-sm">Se rattacher</a>
+                        </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Script pour initialiser DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#etablissementTable').DataTable();
+        });
+    </script>
+{% endblock %}

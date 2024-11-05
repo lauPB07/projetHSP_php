@@ -7,6 +7,7 @@ use App\Entity\FicheEntreprise;
 use App\Entity\User;
 use App\Form\FicheEntrepriseFormType;
 use App\Form\OffreFormType;
+use App\Repository\FicheEntrepriseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -24,7 +25,7 @@ class FicheEntrepriseController extends AbstractController
     }
 
     #[Route('/profilEntreprise', name: 'profilEntreprise')]
-    public function index(): Response
+    public function index(FicheEntrepriseRepository $entrepriseRepository): Response
     {
         // Récupérer l'utilisateur connecté
         $currentUser = $this->getUser();
@@ -35,6 +36,7 @@ class FicheEntrepriseController extends AbstractController
         // Passer l'entreprise au template
         return $this->render('fiche_entreprise/index.html.twig', [
             'entreprise' => $entreprise,
+            'entreprises' => $entrepriseRepository->findAll(),
         ]);
     }
 

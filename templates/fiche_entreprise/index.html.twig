@@ -13,8 +13,37 @@
             <a href="{{ path('editFicheEntreprise',{id:entreprise.id}) }}" class="btn btn-primary">Editer</a>
         {% else %}
             <p>Vous n'êtes pas associé à une fiche entreprise.</p>
+            <div class="container mt-4">
+                <h1>Liste des entreprises</h1>
+
+                <table id="entrepriseTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nom de l'entreprise</th>
+                        <th>Adresse</th>
+                        <th>Adresse web</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entreprises in entreprises %}
+                        <tr>
+                            <td>{{ entreprises.nomEntreprise }}</td>
+                            <td>{{ entreprises.rue }} {{ entreprises.ville }} {{ entreprises.cp }} </td>
+                            <td>{{ entreprises.adresseWeb }}</td>
+                            <td>
+                                <a href="{{path('rattacherUserFicheEnt', {id:entreprises.id}) }}" class="btn btn-primary btn-sm">Se rattacher</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#entrepriseTable').DataTable();
+                });
+            </script>
             <a href="{{ path('createFicheEntreprise') }}" class="btn btn-secondary">Créer une fiche entreprise</a>
-            <a href="{{ path('rattacherFicheEntreprise') }}" class="btn btn-secondary">Se rattacher à une fiche entreprise</a>
         {% endif %}
     </div>
 {% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Etablissement{% endblock %}
+
+{% block body %}
+    <div>
+        {% if etablissement is not null %}
+            <h2>Informations sur votre etablissement</h2>
+            <p>Nom de l'Etablissement: {{ etablissement.nomEtablissement }}</p>
+            <p>Adresse: {{ etablissement.rue }}, {{ etablissement.cp }} {{ etablissement.ville }}</p>
+            <p>Site Web: <a href="{{ etablissement.adresseWeb }}">{{ etablissement.adresseWeb }}</a></p>
+            <a href="{{ path('editFicheEtablissement',{id:etablissement.id}) }}" class="btn btn-primary">Editer</a>
+        {% else %}
+            <p>Vous n'êtes pas associé à une fiche etablissement.</p>
+            <div class="container mt-4">
+                <h1>Liste des etablissement</h1>
+
+                <table id="etablissementTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nom de l'etablissement</th>
+                        <th>Adresse</th>
+                        <th>Adresse web</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for etablissement in etablissement %}
+                        <tr>
+                            <td>{{ etablissement.nomEtablissement }}</td>
+                            <td>{{ etablissement.rue }} {{ etablissement.ville }} {{ etablissement.cp }} </td>
+                            <td>{{ etablissement.adresseWeb }}</td>
+                            <td>
+                                <a href="{{path('rattacherUserFicheEta', {id:etablissement.id}) }}" class="btn btn-primary btn-sm">Se rattacher</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Script pour initialiser DataTables -->
+            <script>
+                $(document).ready(function() {
+                    $('#etablissementTable').DataTable();
+                });
+            </script>
+            <a href="{{ path('createFicheEtablissement') }}" class="btn btn-secondary">Créer une fiche etablissement</a>
+        {% endif %}
+    </div>
+{% endblock %}

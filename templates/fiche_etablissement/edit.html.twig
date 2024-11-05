@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Fiche Etablissement : "~ ficheEtablissement.nomEtablissement %}
+
+{% block body %}
+    <h1>{{ ficheEtablissement.nomEtablissement }}</h1>
+    {{ form(form) }}
+{% endblock %}

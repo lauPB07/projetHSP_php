@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer une fiche etablissement{% endblock %}
+{% block body %}
+    {{ form(form) }}
+    <a class="btn btn-primary" href="{{ path('profilEtablissement') }}">Retour</a>
+{% endblock %}
