@@ -52,16 +52,14 @@
                              {% endif%}
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
-<<<<<<< HEAD
+
                             <li><a href="{{ path('event') }}">Evenements</a></li>
                             <li><a href="#">Profil Etudiant</a></li>
-=======
-                            <li><a href="#">Evenements</a></li>
+
                             <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
                         {% endif %}
                         {% if 'Admin' in app.user.roles %}
                             <li><a href="{{ path('app_admin') }}">Vailider Compte</a></li>
->>>>>>> ff73e8931f97749f4f3d99b2820961b975b136e4
                         {% endif %}
                     {% endif %}
                 </ul>
