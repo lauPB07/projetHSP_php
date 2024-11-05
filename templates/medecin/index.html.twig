@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registre des Medecins{% endblock %}
+
+{% block body %}
+    <h1>Registre des Medecins</h1>
+
+<div>
+<table id="registreMedecin">
+<thead>
+    <tr>
+         <th class="min-w-200px px-0">nom</th>
+         <th class="min-w-125px">prenom</th>
+         <th class="min-w-125px">email</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        {% for medecin in medecins %}
+    <tr>
+        <td>{{ medecin.nom }}</td>
+        <td>{{ medecin.prenom }}</td>
+        <td>{{ medecin.email }}</td>
+    </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#registreMedecin').DataTable();
+        });
+    </script>
+
+{% endblock %}
+

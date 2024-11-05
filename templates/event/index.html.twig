@@ -16,6 +16,9 @@
                 <th>Description</th>
                 <th>Date</th>
                 <th>Nombre de places</th>
+                <th> Participez a l'event</th>
+                <th> Information sur l'event</th>
+
             </tr>
             </thead>
             <tbody>
@@ -27,6 +30,28 @@
                     <td>{{ event.description }}</td>
                     <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
                     <td>{{ event.nbPlace }}</td>
+                    {% if app.user not in event.getRefUserParticipe %}
+                    <td>
+                        <form action="{{ path('participeEvent', {id:event.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="PARTICIPER">
+                            <button type="submit" class="btn btn-success" >participer</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                    {% if app.user in event.getRefUserParticipe %}
+                    <td>
+                        <form action="{{ path('desincriptionEvent', {id:event.id}) }}" method="post">
+                            <input type="hidden" name="_method" value="DESINSCRIRE">
+                            <button type="submit" class="btn btn-danger" >desinscription</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                    {% if event.nbplace == 0 %}
+                        <td> Plus de disponibilité a cet evenement</td>
+                    {% else %}
+                        <td> Vous pouvez vous inscrire</td>
+                    {% endif %}
+
 
                     {% set userInEvent = false %}
                     {% for user in event.users %}

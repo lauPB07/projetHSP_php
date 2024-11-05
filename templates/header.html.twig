@@ -20,14 +20,18 @@
 
                     {% if app.user %}
                         {% if 'Etudiant' in app.user.roles %}
+
+                            <li><a href={{ path('app_registre_medecin') }}>Doctors</a></li>
+
                             <li><a href="{{ path('app_etudiant') }}">Annuair Medecin</a></li>
+
                             <li><a href="#">Forum de discussion</a></li>
                             <li class="dropdown">
-                                <a href="#"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <a href="{{ path('event') }}"><span>Offres</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
-                                    <li><a href="{{ path('showStages') }}">Stages</a></li>
-                                    <li><a href="{{ path('showEmplois') }}">Emplois</a></li>
-                                    <li><a href="{{ path('showProjets') }}">Projets</a></li>
+                                    <li><a href="{{ path('showAllStages') }}">Stages</a></li>
+                                    <li><a href="{{ path('showAllEmplois') }}">Emplois</a></li>
+                                    <li><a href="{{ path('showAllProjets') }}">Projets</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Evenements</a></li>
@@ -50,6 +54,10 @@
                         {% if 'Medecin' in app.user.roles %}
                             <li><a href="#">Evenements</a></li>
                             <li><a href="{{ path('profilEtablissement') }}">Etablissement</a></li>
+
+                            <li><a href="{{ path('event') }}">Evenements</a></li>
+                            <li><a href="#">Profil Etudiant</a></li>
+
                             <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
                         {% endif %}
                         {% if 'Admin' in app.user.roles %}
