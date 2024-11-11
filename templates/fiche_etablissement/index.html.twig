@@ -8,7 +8,7 @@
             <h2>Informations sur votre etablissement</h2>
             <p>Nom de l'Etablissement: {{ etablissement.nomEtablissement }}</p>
             <p>Adresse: {{ etablissement.rue }}, {{ etablissement.cp }} {{ etablissement.ville }}</p>
-            <p>Site Web: <a href="{{ etablissement.adresseWeb }}">{{ etablissement.adresseWeb }}</a></p>
+            <p>Site Web: <a href="{{ etablissement.adressWeb }}">{{ etablissement.adressWeb }}</a></p>
             <a href="{{ path('editFicheEtablissement',{id:etablissement.id}) }}" class="btn btn-primary">Editer</a>
         {% else %}
             <p>Vous n'êtes pas associé à une fiche etablissement.</p>

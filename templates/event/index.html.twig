@@ -3,7 +3,7 @@
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
-<a href="{{ path('createEvent') }}" class="btn btn-info">Créer un évenement</a>
+    <a href="{{ path('createEvent') }}" class="btn btn-info">Créer un évenement</a>
     <div class="container mt-4">
         <h1>Liste des événements</h1>
 
@@ -16,60 +16,72 @@
                 <th>Description</th>
                 <th>Date</th>
                 <th>Nombre de places</th>
-                <th> Participez a l'event</th>
-                <th> Information sur l'event</th>
-
+                <th>Participez a l'event</th>
+                <th>Information sur l'event</th>
             </tr>
             </thead>
             <tbody>
             {% for event in events %}
-                <tr>
-                    <td>{{ event.id }}</td>
-                    <td>{{ event.type }}</td>
-                    <td>{{ event.titre }}</td>
-                    <td>{{ event.description }}</td>
-                    <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
-                    <td>{{ event.nbPlace }}</td>
-                    {% if app.user not in event.getRefUserParticipe %}
-                    <td>
-                        <form action="{{ path('participeEvent', {id:event.id}) }}" method="post">
-                            <input type="hidden" name="_method" value="PARTICIPER">
-                            <button type="submit" class="btn btn-success" >participer</button>
-                        </form>
-                    </td>
-                    {% endif %}
-                    {% if app.user in event.getRefUserParticipe %}
-                    <td>
-                        <form action="{{ path('desincriptionEvent', {id:event.id}) }}" method="post">
-                            <input type="hidden" name="_method" value="DESINSCRIRE">
-                            <button type="submit" class="btn btn-danger" >desinscription</button>
-                        </form>
-                    </td>
-                    {% endif %}
-                    {% if event.nbplace == 0 %}
-                        <td> Plus de disponibilité a cet evenement</td>
-                    {% else %}
-                        <td> Vous pouvez vous inscrire</td>
-                    {% endif %}
+                {% if event.date ? event.date|date('Y-m-d') >= "now"|date('Y-m-d') %}
+                    <tr>
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.type }}</td>
+                        <td>{{ event.titre }}</td>
+                        <td>{{ event.description }}</td>
+                        <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ event.nbPlace }}</td>
 
-
-                    {% set userInEvent = false %}
-                    {% for user in event.users %}
-                        {% if user.id == app.user.id %}
-                            {% set userInEvent = true %}
+                        {% if event.nbPlace <= 0 %}
+                            {% if app.user in event.getRefUserParticipe %}
+                                <td>
+                                    <form action="{{ path('desincriptionEvent', {id:event.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="DESINSCRIRE">
+                                        <button type="submit" class="btn btn-danger">Désinscription</button>
+                                    </form>
+                                </td>
+                                <td>Vous êtes déjà inscrit</td>
+                            {% else %}
+                                <td></td>
+                                <td>Plus de disponibilité pour cet événement</td>
+                            {% endif %}
+                        {% else %}
+                            {% if app.user not in event.getRefUserParticipe %}
+                                <td>
+                                    <form action="{{ path('participeEvent', {id:event.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="PARTICIPER">
+                                        <button type="submit" class="btn btn-success">Participer</button>
+                                    </form>
+                                </td>
+                                <td>Vous pouvez vous inscrire</td>
+                            {% elseif app.user in event.getRefUserParticipe %}
+                                <td>
+                                    <form action="{{ path('desincriptionEvent', {id:event.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="DESINSCRIRE">
+                                        <button type="submit" class="btn btn-danger">Désinscription</button>
+                                    </form>
+                                </td>
+                                <td>Vous êtes déjà inscrit</td>
+                            {% endif %}
                         {% endif %}
-                    {% endfor %}
 
-                    {% if userInEvent %}
-                        <td>
-                            <a href="{{path('editEvent', {id:event.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
-                            <form action="{{ path('deleteEvent', {id:event.id}) }}" method="post">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-danger" >Supprimer</button>
-                            </form>
-                        </td>
-                    {% endif %}
-                </tr>
+                        {% set userInEvent = false %}
+                        {% for user in event.users %}
+                            {% if user.id == app.user.id %}
+                                {% set userInEvent = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if userInEvent %}
+                            <td>
+                                <a href="{{ path('editEvent', {id:event.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                <form action="{{ path('deleteEvent', {id:event.id}) }}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>

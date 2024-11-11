@@ -137,7 +137,7 @@ class EventController extends AbstractController
         $entityManager->flush();
         $this->addFlash("success", "Vous etes bien inscrit a l'evenement");
 
-        return new Response('Utilisateur ajouté à l\'événement', Response::HTTP_OK);
+        return $this->redirectToRoute('event');
     }
     #[Route('/{id}/desincriptionEvent', name:'desincriptionEvent', methods: ['POST','GET'])]
     public function desinscrire(EntityManagerInterface $entityManager, Security $security, EventRepository $eventRepository, int $id): Response
@@ -170,7 +170,7 @@ class EventController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash("success", "Vous vous êtes désinscrit de l'événement");
-        return new Response('Utilisateur retiré de l\'événement', Response::HTTP_OK);
+        return $this->redirectToRoute('event');
     }
 
 }
