@@ -46,7 +46,6 @@
                                         <li><a href="{{ path('showStages') }}">Stages</a></li>
                                         <li><a href="{{ path('showEmplois') }}">Emplois</a></li>
                                         <li><a href="{{ path('showProjets') }}">Projets</a></li>
-                                        <li><a href="{{ path('showProjets') }}">TEST</a></li>
                                     </ul>
                                 </li>
                             <li><a href="{{ path('event') }}">Evenements</a></li>
@@ -61,6 +60,7 @@
                         {% endif %}
                         {% if 'Admin' in app.user.roles %}
                             <li><a href="{{ path('app_admin') }}">Vailider Compte</a></li>
+                            <li><a href="{{ path('app_annuaire_admin') }}">Annuaire</a></li>
                         {% endif %}
                     {% endif %}
                 </ul>

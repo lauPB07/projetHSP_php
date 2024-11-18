@@ -16,12 +16,19 @@ class AnnuaireController extends AbstractController
     {
         return $this->render('Annuaire/index.html.twig', [
             'user'=> $user->findAll(),
-        ]);
+        ]); 
     }
     #[Route('/Medecin', name: 'app_medecin')]
     public function indexEtudiant(UserRepository $user): Response
     {
-        return $this->render('Annuaire/indexEtudiant.html.twig', [
+        return $this->render('Annuaire/indexMedecin.html.twig', [
+            'user'=> $user->findAll(),
+        ]);
+    }
+    #[Route('/Admin', name: 'app_annuaire_admin')]
+    public function indexAdmin(UserRepository $user): Response
+    {
+        return $this->render('Annuaire/indexAdmin.html.twig', [
             'user'=> $user->findAll(),
         ]);
     }
