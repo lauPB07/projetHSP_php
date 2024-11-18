@@ -3,7 +3,10 @@
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
+    {% if 'Etudiant' in app.user.roles %}
+    {% else %}
     <a href="{{ path('createEvent') }}" class="btn btn-info">Créer un évenement</a>
+    {% endif %}
     <div class="container mt-4">
         <h1>Liste des événements</h1>
 
