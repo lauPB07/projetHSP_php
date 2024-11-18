@@ -21,7 +21,6 @@
                     {% if app.user %}
                         {% if 'Etudiant' in app.user.roles %}
 
-                            <li><a href={{ path('app_registre_medecin') }}>Doctors</a></li>
 
                             <li><a href="{{ path('app_etudiant') }}">Annuair Medecin</a></li>
 
@@ -46,7 +45,6 @@
                                         <li><a href="{{ path('showStages') }}">Stages</a></li>
                                         <li><a href="{{ path('showEmplois') }}">Emplois</a></li>
                                         <li><a href="{{ path('showProjets') }}">Projets</a></li>
-                                        <li><a href="{{ path('showProjets') }}">TEST</a></li>
                                     </ul>
                                 </li>
                             <li><a href="{{ path('event') }}">Evenements</a></li>
