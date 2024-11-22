@@ -55,6 +55,9 @@ class Event
     #[ORM\Column]
     private ?int $nbPlace = null;
 
+    #[ORM\Column]
+    private ?int $nbPlaceTotal = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -225,6 +228,18 @@ class Event
     public function setNbPlace(int $nbPlace): static
     {
         $this->nbPlace = $nbPlace;
+
+        return $this;
+    }
+
+    public function getNbPlaceTotal(): ?int
+    {
+        return $this->nbPlaceTotal;
+    }
+
+    public function setNbPlaceTotal(int $nbPlaceTotal): static
+    {
+        $this->nbPlaceTotal = $nbPlaceTotal;
 
         return $this;
     }

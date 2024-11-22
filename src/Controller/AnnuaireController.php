@@ -21,7 +21,7 @@ class AnnuaireController extends AbstractController
     #[Route('/Medecin', name: 'app_medecin')]
     public function indexEtudiant(UserRepository $user): Response
     {
-        return $this->render('Annuaire/indexMedecin.html.twig', [
+        return $this->render('Annuaire/indexEtudiant.html.twig', [
             'user'=> $user->findAll(),
         ]);
     }

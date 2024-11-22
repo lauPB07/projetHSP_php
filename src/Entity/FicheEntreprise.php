@@ -33,7 +33,10 @@ class FicheEntreprise
     #[ORM\Column(length: 255)]
     private ?string $adresse_web = null;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="ref_entreprise")
+     */
+    private $users;
 
     /**
      * @var Collection<int, Offre>

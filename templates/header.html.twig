@@ -33,7 +33,7 @@
                                     <li><a href="{{ path('showAllProjets') }}">Projets</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Evenements</a></li>
+                            <li><a href="{{ path('event') }}">Evenements</a></li>
                         {% endif %}
                         {% if 'Partenaire/Entreprise' in app.user.roles  %}
                             <li><a href="{{ path('profilEntreprise') }}">Profil Entreprise</a></li>
@@ -53,8 +53,6 @@
                         {% if 'Medecin' in app.user.roles %}
                             <li><a href="{{ path('profilEtablissement') }}">Etablissement</a></li>
                             <li><a href="{{ path('event') }}">Evenements</a></li>
-                            <li><a href="#">Profil Etudiant</a></li>
-
                             <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
                         {% endif %}
                         {% if 'Admin' in app.user.roles %}

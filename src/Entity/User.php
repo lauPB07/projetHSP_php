@@ -42,19 +42,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $valider ;
 
-    #[ORM\ManyToOne(targetEntity: FicheEntreprise::class, inversedBy: 'users')]
+    /**
+     * @ORM\ManyToOne(targetEntity=FicheEntreprise::class, inversedBy="users")
+     */
     private ?FicheEntreprise $ref_entreprise = null;  // Correction du type
 
-    #[ORM\ManyToOne(targetEntity: Specialite::class, inversedBy: 'users')]
+    /**
+     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="users")
+     */
     private ?Specialite $ref_spe = null;  // Cela reste inchangé
 
-    #[ORM\ManyToOne(targetEntity: Hopital::class, inversedBy: 'users')]
+    /**
+     * @ORM\ManyToOne(targetEntity=Hopital::class, inversedBy="users")
+     */
     private ?Hopital $ref_hopital = null;  // Cela reste inchangé
 
-    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'users')]
+    /**
+     * @ORM\ManyToOne(targetEntity=Role::class, inversedBy="users")
+     */
     private ?Role $ref_role = null;
 
-    #[ORM\ManyToOne(targetEntity: FicheEtablissement::class, inversedBy: 'users')]
+    /**
+     * @ORM\ManyToOne(targetEntity=FicheEtablissement::class, inversedBy="users")
+     */
     private ?FicheEtablissement $ref_etablissement = null;
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'ref_user')]
@@ -82,12 +92,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $offres;
 
     /**
-     * @var Collection<int, QuestionSupport>
+     * @ORM\OneToMany(targetEntity=QuestionSupport::class, mappedBy="ref_admin")
      */
-    #[ORM\OneToMany(targetEntity: QuestionSupport::class, mappedBy: 'ref_admin')]
-    private Collection $questionSupports;
-
-
+    private $questionSupports;
 
 
 

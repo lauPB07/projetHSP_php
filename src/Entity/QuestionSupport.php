@@ -24,16 +24,20 @@ class QuestionSupport
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
-
-    #[ORM\ManyToOne(inversedBy: 'questionSupports')]
+    #[ManyToOne(targetEntity: User::class, inversedBy: "questionSupports")]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $ref_user = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $reponse = null;
 
-    #[ORM\ManyToOne(inversedBy: 'questionSupports')]
-    private ?User $ref_admin = null;
+    /**
+     * @ORM\OneToMany(targetEntity=QuestionSupport::class, mappedBy="ref_admin")
+     */
+    private $questionSupports;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $status = null;
 
     public function __construct()
     {
@@ -113,6 +117,18 @@ class QuestionSupport
     public function setRefAdmin(?User $ref_admin): static
     {
         $this->ref_admin = $ref_admin;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

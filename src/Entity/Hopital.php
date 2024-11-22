@@ -19,6 +19,11 @@ class Hopital
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="ref_hopital")
+     */
+    private $users;
+
     public function getId(): ?int
     {
         return $this->id;

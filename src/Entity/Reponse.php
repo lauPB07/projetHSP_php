@@ -28,14 +28,18 @@ class Reponse
     /**
      * @var Collection<int, Post>
      */
-    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reponse')]
-    private Collection $ref_post;
+    /**
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="reponses")
+     */
+    private $ref_post;
+
 
     /**
      * @var Collection<int, User>
      */
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reponse')]
     private Collection $ref_user;
+
 
     public function __construct()
     {

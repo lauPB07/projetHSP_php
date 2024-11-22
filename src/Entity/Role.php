@@ -16,6 +16,10 @@ class Role
     #[ORM\Column(length: 255)]
     private ?string $nom_role = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="ref_role")
+     */
+    private $users;
 
 
     public function getId(): ?int
