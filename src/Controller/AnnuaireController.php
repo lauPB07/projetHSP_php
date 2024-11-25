@@ -22,6 +22,7 @@ class AnnuaireController extends AbstractController
     public function indexEtudiant(UserRepository $user): Response
     {
         return $this->render('Annuaire/indexEtudiant.html.twig', [
+
             'user'=> $user->findAll(),
         ]);
     }

@@ -30,5 +30,14 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('app_admin');
     }
+    #[Route('/refuser/{id}', name: 'app_refuser', methods: ['POST'])]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
 
+        return $this->redirectToRoute('app_admin');
+    }
 }
