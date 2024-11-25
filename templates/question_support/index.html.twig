@@ -62,6 +62,9 @@
         </tbody>
     </table>
     {% if app.user %}
+        {% if 'Admin' in app.user %}
+        {% else %}
         <a href="{{ path('app_question_support_new') }}">Create new</a>
+        {% endif %}
     {% endif %}
 {% endblock %}
