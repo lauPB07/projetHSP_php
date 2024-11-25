@@ -28,10 +28,6 @@ class FicheEtablissement
     #[ORM\Column(length: 255)]
     private ?string $adress_web = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="ref_etablissement")
-     */
-    private $users;
 
 
     public function getId(): ?int

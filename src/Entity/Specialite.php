@@ -16,12 +16,6 @@ class Specialite
     #[ORM\Column(length: 255)]
     private ?string $nom_spe = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="ref_spe")
-     */
-    private $users;
-
-
     public function getId(): ?int
     {
         return $this->id;

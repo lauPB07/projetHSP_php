@@ -34,10 +34,6 @@ class Post
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'post')]
     private User $ref_user;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="ref_post")
-     */
-    private $reponses;
 
 
     public function __construct()

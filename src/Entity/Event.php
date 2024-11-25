@@ -231,16 +231,13 @@ class Event
 
         return $this;
     }
-
     public function getNbPlaceTotal(): ?int
     {
         return $this->nbPlaceTotal;
     }
-
     public function setNbPlaceTotal(int $nbPlaceTotal): static
     {
         $this->nbPlaceTotal = $nbPlaceTotal;
-
         return $this;
     }
 }
