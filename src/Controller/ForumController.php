@@ -5,8 +5,12 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\FicheEntreprise;
 use App\Entity\Post;
+use App\Entity\Reponse;
 use App\Form\FicheEntrepriseFormType;
 use App\Form\PostType;
+use App\Form\ReponseType;
+use App\Repository\PostRepository;
+use App\Repository\ReponseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -49,4 +53,46 @@ class ForumController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/reponse/{id}', name: 'app_reponse', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function reponse(EntityManagerInterface $em, PostRepository $repositorypost,ReponseRepository $repository, int $id): Response
+    {
+        $posts = $repositorypost->find($id);
+        $reponses = $repository->findReponsesById($posts->getId());
+        return $this->render('forum/reponse.html.twig', [
+            'controller_name' => 'RepondreController',
+            'posts' => [$posts], // Encapsule l'objet dans un tableau
+            'reponses' => $reponses,
+        ]);
+    }
+
+    #[Route('/createReponse/{id}', name: 'app_createReponse', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function createReponse(Request $request, EntityManagerInterface $manager, Security $security, int $id, PostRepository $repositorypost): Response
+    {
+        $post = $repositorypost->find($id);
+        $reponse = new Reponse();
+        $form = $this->createForm(ReponseType::class, $reponse);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reponse->addRefPost($post);
+            $manager->persist($reponse);
+            $manager->flush();
+            $user = $security->getUser();
+
+            if ($user) {
+                $reponse->setRefUser($user);
+                $manager->persist($reponse);
+                $manager->flush();
+            }
+            $this->addFlash('success', 'La question a bien été créée');
+            return $this->redirectToRoute('app_forum');
+        }
+        return $this->render('/forum/createReponse.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+
+
+
 }
