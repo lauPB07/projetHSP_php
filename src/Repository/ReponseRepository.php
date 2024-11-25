@@ -31,13 +31,12 @@ class ReponseRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Reponse
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findReponsesById($id)
+    {
+        return $this->createQueryBuilder('r')
+        ->where('r.ref_post = :id') // Utilisation du même nom que le paramètre
+       ->setParameter('id', $id) // Correspond au paramètre défini dans where
+        ->getQuery()
+       ->getResult();
+    }
 }
