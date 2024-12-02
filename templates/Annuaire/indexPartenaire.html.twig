@@ -12,20 +12,20 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>Email</th>
-            <th>Spécialité</th>
-            <th>Etablissement</th>
+            <th>Entreprise</th>
         </tr>
         </thead>
         <tbody>
         {% for user in user %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.nom }}</td>
-                <td>{{ user.prenom }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.getRefSpe()}}</td>
-                <td>{{ user.getRefEtablissement()}}</td>
-            </tr>
+            {% if 1 in user.getRoles()  %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.getRefEntreprise().getNomEntreprise()}}</td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>

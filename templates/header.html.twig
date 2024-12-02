@@ -57,7 +57,15 @@
                         {% endif %}
                         {% if 'Admin' in app.user.roles %}
                             <li><a href="{{ path('app_admin') }}">Vailider Compte</a></li>
-                            <li><a href="{{ path('app_annuaire_admin') }}">Annuaire</a></li>
+                            <li class="dropdown">
+                                <a href="#"><span>Annuaire</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
+                                    <li><a href="{{ path('app_etudiant') }}">Annuair Medecin</a></li>
+                                    <li><a href="{{ path('app_partenaire') }}">Annuaire des Partenaire</a></li>
+                                </ul>
+                            </li>
+
                         {% endif %}
                     {% endif %}
                 </ul>
@@ -76,7 +84,7 @@
                             <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
-                            <li><a class="dropdown-item" href="#">Information du compte</a></li>
+                            <li><a class="dropdown-item" href="{{path('registerEditMedecin ', {id:app.user.id}) }}">Information du compte</a></li>
                             <li><a class="dropdown-item" href="{{ path('app_modif', {id:app.user.id}) }}">Modifier le mot de passe</a></li>
                         {% endif %}
                         {% if 'Etudiant' in app.user.roles %}
