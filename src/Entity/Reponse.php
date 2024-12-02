@@ -29,18 +29,17 @@ class Reponse
      * @var Collection<int, Post>
      */
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reponse')]
-    private Collection $ref_post;
+    private Post $ref_post;
 
     /**
      * @var Collection<int, User>
      */
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reponse')]
-    private Collection $ref_user;
+    private User $ref_user;
 
     public function __construct()
     {
-        $this->ref_post = new ArrayCollection();
-        $this->ref_user = new ArrayCollection();
+
     }
 
 

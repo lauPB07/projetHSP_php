@@ -78,6 +78,7 @@ class EventController extends AbstractController
             if($user){
                 $event->addUser($user);
             }
+            $event->setNbPlaceTotal($event->getNbPlace());
             $em->persist($event);
             $em->flush();
             $this->addFlash('success', 'L evenement a bien été créée');

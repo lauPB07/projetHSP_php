@@ -7,61 +7,82 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Message</th>
-                <th>Date</th>
-                <th>Reponse</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Status</th>
+            {% if app.user %}
+                {% if 'Admin' in app.user.roles %}
+                    <th>Réponce</th>
+                    <th>Réponce aux ticket</th>
+                    <th>Cloturer ticket</th>
+                {% else %}
+                    <th>Réponse</th>
+                    <th>action</th>
+                {% endif %}
+            {% endif %}
+
+        </tr>
         </thead>
         <tbody>
-        {% for question_support in question_supports %}
+            {% for question_support in question_supports %}
+                <tr>
+                    {% if app.user %}
+                        {% if 'Admin' in app.user.roles %}
 
-            <tr>
-                {% if app.user %}
-                    {% if 'Admin' in app.user.roles %}
-                        <td>{{ question_support.id }}</td>
-                        <td>{{ question_support.titre }}</td>
-                        <td>{{ question_support.message }}</td>
-                        <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ question_support.reponse }}</td>
-                        <td>
-                            {% if question_support.reponse %}
-                                {% if question_support.getRefAdmin().getId() == app.user.id %}
-                                    <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
-                                    <a href="{{ path('app_question_support_reponse', {'id': question_support.id}) }}">Modifier</a>
-                                {% else %}
-                                    <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
-                                {% endif %}
+                            {% if question_support.status == "Un administrateur vous a répondu" and question_support.getRefAdmin() not in app.user.id %}
+
                             {% else %}
-                                <a href="{{ path('app_question_support_reponse', {'id': question_support.id}) }}">Nouvelle Réponse</a>
+
+                                <td>{{ question_support.id }}</td>
+                                <td>{{ question_support.titre }}</td>
+                                <td>{{ question_support.message }}</td>
+                                <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ question_support.status }}</td>
+                                <td>{{ question_support.reponce }}</td>
+
+
+
+                                {% if question_support.status == "Prise en charge par un Administrateur" %}
+                                    <td> <a href="{{ path('app_question_support_reponse', {'id': question_support.id}) }}">Modifier</a></td>
+                                    <td><a href="{{ path('app_question_support_cloture', {'id': question_support.id}) }}">Cloture du ticket</a></td>
+                                {% elseif question_support.status == "Un administrateur vous a répondu" %}
+
+                                {% else %}
+                                    <td><a href="{{ path('app_question_support_ticket', {'id': question_support.id}) }}">Prendre en charge du ticket</a></td>
+                                {% endif %}
                             {% endif %}
-                        </td>
-                    {% else %}
-                        {% if question_support.getRefUser().getId() == app.user.id %}
-                            <td>{{ question_support.id }}</td>
-                            <td>{{ question_support.titre }}</td>
-                            <td>{{ question_support.message }}</td>
-                            <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
-                            <td>{{ question_support.reponse }}</td>
-                            <td>
-                                <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
-                                <a href="{{ path('app_question_support_edit', {'id': question_support.id}) }}">Modifier</a>
-                            </td>
+                        {% else %}
+                            {% if question_support.getRefUser().getId() == app.user.id %}
+                                <td>{{ question_support.id }}</td>
+                                <td>{{ question_support.titre }}</td>
+                                <td>{{ question_support.message }}</td>
+                                <td>{{ question_support.date ? question_support.date|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ question_support.status }}</td>
+                                <td>{{ question_support.reponse }}</td>
+                                <td>
+                                    <a href="{{ path('app_question_support_show', {'id': question_support.id}) }}">show</a>
+                                    {% if question_support.status == "En attente d'être pris en charge" %}
+                                        <a href="{{ path('app_question_support_edit', {'id': question_support.id}) }}">Modifier</a>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
-                {% endif %}
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     {% if app.user %}
-        <a href="{{ path('app_question_support_new') }}">Create new</a>
+        {% if 'Admin' in app.user.roles %}
+        {% else %}
+            <a href="{{ path('app_question_support_new') }}">Create new</a>
+        {% endif %}
     {% endif %}
 {% endblock %}

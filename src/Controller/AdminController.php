@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\QuestionSupport;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -24,6 +27,16 @@ class AdminController extends AbstractController
         $user->setValider(1);
         $entityManager->persist($user);
         $entityManager->flush();
+
+        return $this->redirectToRoute('app_admin');
+    }
+    #[Route('/refuser/{id}', name: 'app_refuser', methods: ['POST'])]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_admin');
     }

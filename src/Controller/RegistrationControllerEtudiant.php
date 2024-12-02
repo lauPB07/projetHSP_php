@@ -45,6 +45,7 @@ class RegistrationControllerEtudiant extends AbstractController
             // encode the plain password
             $user->setMdp($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setRefRole($roleRepository->find($form->get('ref_role')->getData()));
+            $user->setCv(base64_encode(file_get_contents($form->get('cv')->getData())));
             $entityManager->persist($user);
 
             // generate a signed url and email it to the user

@@ -36,6 +36,7 @@ final class QuestionSupportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($user) {
                 $questionSupport->setRefUser($user);
+                $questionSupport->setStatus("En attente d'être pris en charge");
             }
             $entityManager->persist($questionSupport);
             $entityManager->flush();
@@ -94,6 +95,30 @@ final class QuestionSupportController extends AbstractController
             'question_support' => $questionSupport,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}/cloture', name: 'app_question_support_cloture', methods: ['GET', 'POST'])]
+    public function ticker(Request $request, QuestionSupport $questionSupport, EntityManagerInterface $entityManager,Security $security): Response
+    {
+        $user = $security->getUser();
+        if ($user) {
+            $questionSupport->setStatus("Un administrateur vous a répondu");
+        }
+        $entityManager->flush();
+        return $this->redirectToRoute('app_question_support_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+    #[Route('/{id}/ticker', name: 'app_question_support_ticket', methods: ['GET', 'POST'])]
+    public function cloture(Request $request, QuestionSupport $questionSupport, EntityManagerInterface $entityManager,Security $security): Response
+    {
+
+        $user = $security->getUser();
+        if ($user) {
+            $questionSupport->setRefAdmin($user);
+            $questionSupport->setStatus("Prise en charge par un Administrateur");
+        }
+        $entityManager->flush();
+        return $this->redirectToRoute('app_question_support_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_question_support_delete', methods: ['POST'])]
