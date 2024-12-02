@@ -128,7 +128,6 @@ class Offre
 
         return $this;
     }
-
     /**
      * @return Collection<int, User>
      */
