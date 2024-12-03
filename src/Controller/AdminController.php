@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
+
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
@@ -30,14 +32,14 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('app_admin');
     }
-    #[Route('/refuser/{id}', name: 'app_refuser', methods: ['POST'])]
+
+    #[Route('/refuser/{id}', name: 'app_admin_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('app_admin');
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }
