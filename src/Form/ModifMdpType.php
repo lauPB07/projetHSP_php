@@ -15,20 +15,38 @@ class ModifMdpType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('oldPassword', PasswordType::class, [
+                'label' => 'Ancien mot de passe',
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'current-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre ancien mot de passe.',
+                    ]),
+                ],
+            ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'label' => 'Nouveau mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez saisir un nouveau mot de passe.',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères.',
                         'max' => 4096,
+                    ]),
+                ],
+            ])
+            ->add('confirmPassword', PasswordType::class, [
+                'label' => 'Confirmer le nouveau mot de passe',
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez confirmer votre nouveau mot de passe.',
                     ]),
                 ],
             ]);
