@@ -121,7 +121,7 @@ class OffreController extends AbstractController
         ]);
     }
 
-    #[Route('/editOffre/{id}/edit', name: 'editEvent', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    #[Route('/editOffre/{id}/edit', name: 'editOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
     public function editOffre(Offre $offre, Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OffreFormType::class, $offre);

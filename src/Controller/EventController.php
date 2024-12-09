@@ -89,7 +89,7 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/editOffre/{id}/edit', name: 'editOffre', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    #[Route('/editEvent/{id}/edit', name: 'editEvent', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
     public function editOffre(Event $event, Request $request, EntityManagerInterface $entityManager): Response{
         $form = $this->createForm(EventFormType::class, $event);
         $form->handleRequest($request);
