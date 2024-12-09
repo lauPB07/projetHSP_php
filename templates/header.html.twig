@@ -18,6 +18,9 @@
                     <li><a href="{{ path('app_forum') }}">Forum</a></li>
 
                     {% if app.user %}
+                        {% if app.user.valider==0 %}
+                            <meta http-equiv="refresh" content="0;url={{ path('app_logout') }}">
+                        {% endif %}
                         {% if 'Etudiant' in app.user.roles %}
                             <li><a href="{{ path('app_question_support_index') }}">Contact</a></li>
                             <li><a href="{{ path('app_etudiant') }}">Annuair Medecin</a></li>
