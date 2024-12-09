@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\QuestionSupport;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +14,6 @@ class QuestionSupportType extends AbstractType
         $builder
             ->add('titre')
             ->add('message')
-            ->add('date', null, [
-                'widget' => 'single_text',
-            ])
         ;
     }
 

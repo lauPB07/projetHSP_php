@@ -18,7 +18,7 @@
                     <p class="card-text">Description de l'offre : {{ offre.description }}</p>
                     <p class="card-text">Les missions lier: {{ offre.missionlier }}</p>
                     <p class="card-text">Le salaire: {{ offre.salaire}}</p>
-                    <a href="#" class="btn btn-primary">Participer</a>
+                    <a href="{{ path('participerOffre', { 'id': offre.id }) }}">Participer</a>
                 </div>
             </div>
         {% endfor %}

@@ -37,6 +37,7 @@ final class QuestionSupportController extends AbstractController
             if ($user) {
                 $questionSupport->setRefUser($user);
                 $questionSupport->setStatus("En attente d'être pris en charge");
+                $questionSupport->setDate(new \DateTime());
             }
             $entityManager->persist($questionSupport);
             $entityManager->flush();

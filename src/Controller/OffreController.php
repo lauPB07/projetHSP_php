@@ -66,7 +66,6 @@ class OffreController extends AbstractController
     #[Route('/showAllEmplois', name: 'showAllEmplois')]
     public function showAllEmplois( OffreRepository $repository): Response
     {
-        // Récupérer toutes les offres de type "Stage"
         $offres = $repository->findAllEmplois();
 
         return $this->render('offre/showAllEmplois.html.twig', [
@@ -76,7 +75,6 @@ class OffreController extends AbstractController
     #[Route('/showAllProjets', name: 'showAllProjets')]
     public function showAllProjets( OffreRepository $repository): Response
     {
-        // Récupérer toutes les offres de type "Stage"
         $offres = $repository->findAllProjets();
 
         return $this->render('offre/showAllProjets.html.twig', [
@@ -158,5 +156,32 @@ class OffreController extends AbstractController
         return $this->render('offre/participant.html.twig', [
             'participants' => $participants,
         ]);
+    }
+
+    #[Route('/offre/{id}/participer',name: 'participerOffre', methods: ['GET','POST'])]
+    public function participerOffre (int $id, OffreRepository $offreRepository, Security $security,EntityManagerInterface $entityManager): Response
+    {
+        // Récupération de l'utilisateur connecté
+        $user = $security->getUser();
+
+        if (!$user) {
+            return new Response('Utilisateur non connecté', Response::HTTP_FORBIDDEN);
+        }
+
+        // Récupération de l'événement par son ID
+        $offre = $offreRepository->find($id);
+
+        if (!$offre) {
+            return new Response('Offre non trouvé', Response::HTTP_NOT_FOUND);
+        }
+
+        // Ajout de l'utilisateur à l'événement
+        $offre->addUser($user);
+
+        $entityManager->persist($offre);
+        $entityManager->flush();
+        $this->addFlash("success", "Vous etes bien inscrit a l'offre");
+
+        return $this->redirectToRoute('home');
     }
 }
