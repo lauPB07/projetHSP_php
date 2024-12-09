@@ -7,6 +7,8 @@ use App\Entity\FicheEtablissement;
 use App\Entity\User;
 use App\Form\FicheEtablissementFormType;
 use App\Form\OffreFormType;
+use App\Repository\FicheEntrepriseRepository;
+use App\Repository\FicheEtablissementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -25,7 +27,7 @@ class FicheEtablissementController extends AbstractController
     }
 
     #[Route('/profilEtablissement', name: 'profilEtablissement')]
-    public function index(): Response
+    public function index(FicheEtablissementRepository $etablissementRepository): Response
     {
         $currentUser = $this->getUser();
 
@@ -33,6 +35,7 @@ class FicheEtablissementController extends AbstractController
 
         return $this->render('fiche_etablissement/index.html.twig', [
             'etablissement' => $etablissement,
+            'etablissements' => $etablissementRepository->findAll()     ,
         ]);
     }
 
