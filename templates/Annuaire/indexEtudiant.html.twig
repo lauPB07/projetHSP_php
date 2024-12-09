@@ -13,7 +13,7 @@
             <th>Prenom</th>
             <th>Email</th>
             <th>Formation</th>
-            <th>Cv</th>
+            <th>cv</th>
         </tr>
         </thead>
         <tbody>
@@ -24,9 +24,8 @@
                     <td>{{ user.nom }}</td>
                     <td>{{ user.prenom }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.formationEtudiant }}</td>
-                    <img src="data:image/jpeg;base64,{{ img }}" />
-
+                    <td>{{ user.formationEtudiant}}</td>
+                    <td>{{ user.cv }}</td>
                 </tr>
             {% endif %}
         {% else %}
