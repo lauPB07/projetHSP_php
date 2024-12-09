@@ -13,7 +13,11 @@
             <th>Prenom</th>
             <th>Email</th>
             <th>Formation</th>
-            <th>cv</th>
+            <th>Cv</th>
+            {% if 4 in app.user.roles %}
+                <td>Supprimer</td>
+            {% endif %}
+
         </tr>
         </thead>
         <tbody>
@@ -24,8 +28,10 @@
                     <td>{{ user.nom }}</td>
                     <td>{{ user.prenom }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.formationEtudiant}}</td>
-                    <td>{{ user.cv }}</td>
+                    <td>{{ user.formationEtudiant }}</td>
+                    {% if 4 in app.user.roles %}
+                        <td><a href="{{ path('app_refuser', {'id': user.id}) }}">Supprimer</a></td>
+                    {% endif %}
                 </tr>
             {% endif %}
         {% else %}

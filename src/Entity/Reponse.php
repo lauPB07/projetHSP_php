@@ -37,10 +37,6 @@ class Reponse
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reponse')]
     private User $ref_user;
 
-    public function __construct()
-    {
-
-    }
 
 
 
@@ -90,7 +86,7 @@ class Reponse
     /**
      * @return Collection<int, Post>
      */
-    public function getRefPost(): Collection
+    public function getRefPost(): Post
     {
         return $this->ref_post;
     }
@@ -113,6 +109,13 @@ class Reponse
                 $refPost->setReponse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setRefPost(?Post $ref_post): static
+    {
+        $this->ref_post = $ref_post;
 
         return $this;
     }
@@ -147,12 +150,6 @@ class Reponse
         return $this;
     }
 
-    public function setRefPost(?Post $ref_post): static
-    {
-        $this->ref_post = $ref_post;
-
-        return $this;
-    }
 
     public function setRefUser(?User $ref_user): static
     {

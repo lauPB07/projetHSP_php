@@ -33,7 +33,7 @@
                     {% endif %}
                     <th>
                         <a href="{{ path('app_valider', {'id': user.id}) }}">Valider le compte</a>
-                        <a href="{{ path('app_refuser', {'id': user.id}) }}">Refuser le compte</a>
+                        {{ include('admin/_delete_form.html.twig') }}
                     </th>
                 </tr>
             {% endif %}
