@@ -25,7 +25,11 @@
                     <td>{{ user.prenom }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.getRefSpe()}}</td>
-                    <td>{{ user.getRefEtablissement().getNomEtablissement()}}</td>
+                    {% if user.getRefEtablissement().getNomEtablissement() is null %}
+                        <td> Le medecin n'est pas lier à un établissement</td>
+                    {% else %}
+                        <td>{{ user.getRefEtablissement().getNomEtablissement()}}</td>
+                    {% endif %}
                 </tr>
             {% endif %}
         {% else %}
