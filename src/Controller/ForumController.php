@@ -61,7 +61,7 @@ class ForumController extends AbstractController
         $reponses = $repository->findReponsesById($posts->getId());
         return $this->render('forum/reponse.html.twig', [
             'controller_name' => 'RepondreController',
-            'posts' => [$posts], // Encapsule l'objet dans un tableau
+            'posts' => [$posts],
             'reponses' => $reponses,
         ]);
     }
@@ -69,28 +69,31 @@ class ForumController extends AbstractController
     #[Route('/createReponse/{id}', name: 'app_createReponse', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
     public function createReponse(Request $request, EntityManagerInterface $manager, Security $security, int $id, PostRepository $repositorypost): Response
     {
-        $post = $repositorypost->find($id);
         $reponse = new Reponse();
+        $post = $repositorypost->find($id);
         $form = $this->createForm(ReponseType::class, $reponse);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reponse->addRefPost($post);
-            $manager->persist($reponse);
-            $manager->flush();
-            $user = $security->getUser();
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $security->getUser();
             if ($user) {
                 $reponse->setRefUser($user);
-                $manager->persist($reponse);
-                $manager->flush();
+                $reponse->setRefPost($post);
             }
-            $this->addFlash('success', 'La question a bien été créée');
+            $manager->persist($reponse);
+            $manager->flush();
+
+            $this->addFlash('success', 'La réponse a bien été créée.');
+
             return $this->redirectToRoute('app_forum');
         }
+
         return $this->render('/forum/createReponse.html.twig', [
-            'form' => $form
+            'form' => $form->createView(),
         ]);
     }
+
 
 
 
