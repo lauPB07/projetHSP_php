@@ -24,13 +24,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for etablissement in etablissement %}
+                    {% for etablissements in etablissements %}
                         <tr>
-                            <td>{{ etablissement.nomEtablissement }}</td>
-                            <td>{{ etablissement.rue }} {{ etablissement.ville }} {{ etablissement.cp }} </td>
-                            <td>{{ etablissement.adresseWeb }}</td>
+                            <td>{{ etablissements.nomEtablissement }}</td>
+                            <td>{{ etablissements.rue }}{{ etablissements.ville }} {{ etablissements.cp }} </td>
+                            <td>{{ etablissements.adressWeb }}</td>
                             <td>
-                                <a href="{{path('rattacherUserFicheEta', {id:etablissement.id}) }}" class="btn btn-primary btn-sm">Se rattacher</a>
+                                <a href="{{path('rattacherUserFicheEta', {id:etablissements.id}) }}" class="btn btn-primary btn-sm">Se rattacher</a>
                             </td>
                         </tr>
                     {% endfor %}
