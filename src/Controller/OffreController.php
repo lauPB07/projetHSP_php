@@ -32,16 +32,12 @@ class OffreController extends AbstractController
         // Récupérer l'utilisateur connecté
         $user = $security->getUser();
         $entreprises = $user ? $user->getRefEntreprise() : new FicheEntreprise();
-        $form = $this->createForm(OffreFormType::class, $offre, [
-            'entreprises' => $entreprises,
-        ]);
+        $form = $this->createForm(OffreFormType::class, $offre);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($user) {
                 $offre->setRefUserCreer($user);
-            }
-            foreach ($form->get('ref_EntrepriseCreer')->getData() as $entreprise) {
-                $offre->addRefEntrepriseCreer($entreprise);
+                $offre->addRefEntrepriseCreer($entreprises);
             }
             $manager->persist($offre);
             $manager->flush();
