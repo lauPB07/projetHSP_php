@@ -1,9 +1,90 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inscription</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon"  href="{{ asset('login/images/icons/favicon.ico') }}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/daterangepicker/daterangepicker.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/css/util.css') }}">
+    <link rel="stylesheet"  href="{{ asset('login/css/main.css') }}">
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
 
-{% block title %}Inscription{% endblock %}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form">
+            <span class="login100-form-title p-b-43">
+                        Inscrivez-vous
+                    </span>
 
-{% block body %}
-    <a type="submit" href="{{ path('app_registerEtudiant') }}" class="btn btn-secondary">Etudiant</a>
-    <a type="submit" href="{{ path('app_registerMedecin') }}" class="btn btn-secondary">Medecin</a>
-    <a type="submit" href="{{ path('app_registerPartenaire') }}" class="btn btn-secondary">Partenaire/Entreprise</a>
-{% endblock %}
+            <!-- Remplacer les champs input par des boutons -->
+            <div class="wrap-input100">
+                <a type="submit" href="{{ path('app_registerEtudiant') }}" class="login100-form-btn">
+                    Etudiant
+                </a>
+            </div>
+
+            <div class="wrap-input100">
+                <a type="submit" href="{{ path('app_registerMedecin') }}" class="login100-form-btn">
+                    Medecin
+                </a>
+            </div>
+
+            <div class="wrap-input100">
+                <a type="submit" href="{{ path('app_registerPartenaire') }}" class="login100-form-btn">
+                    Partenaire/Entreprise
+                </a>
+            </div>
+
+            </form>
+
+
+            <div class="login100-more" style="background-image: url('{{ asset('login/images/medecin-login.jpg') }}');">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+
+
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/bootstrap/js/popper.js') }}"></script>
+<script src="{{ asset('login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/daterangepicker/moment.min.js') }}"></script>
+<script src="{{ asset('login/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/js/main.js') }}"></script>
+
+</body>
+</html>
