@@ -1,6 +1,42 @@
 {% extends 'base.html.twig' %}
 {% block title %}Poser une Question{% endblock %}
 {% block body %}
-    {{ form(form) }}
-    <a class="btn btn-primary" href="{{ path('app_forum') }}">Retour</a>
+    <div class="form-container">
+        <h3>Je pose ma question</h3>
+        {{ form_start(form, {'attr': {'class': 'my-form-class'}}) }}
+
+        <div class="mb-3">
+            {{ form_label(form.canal, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.canal) }}
+            {{ form_errors(form.canal) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.titre, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.titre) }}
+            {{ form_errors(form.titre) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.contenue, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.contenue) }}
+            {{ form_errors(form.contenue) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.Save) }}
+        </div>
+        <div>
+            <a class="btn btn-primary" href="{{ path('app_forum') }}">Retour</a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}
