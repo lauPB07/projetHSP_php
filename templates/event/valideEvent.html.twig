@@ -1,0 +1,66 @@
+    {% extends 'base.html.twig' %}
+
+    {% block title %}Evenements{% endblock %}
+
+    {% block body %}
+        {% if 'Etudiant' in app.user.roles %}
+        {% else %}
+            <a href="{{ path('createEvent') }}" class="btn btn-info">Créer un évenement</a>
+        {% endif %}
+        <div class="container mt-4">
+            <h1>Liste des événements</h1>
+
+            <table id="eventsTable" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Nombre de places</th>
+                    <th>Nombre de places Disponible</th>
+                    <th>Valider L'Evenement</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    {% set valide = false %}
+                    {% for user in event.users %}
+                        {% if "Medecin" in user.roles  or "Admin"in user.roles or "Partenaire/Entreprise" in user.roles %}
+                            {% set valide = false %}
+                        {% else %}
+                            {% set valide = true %}
+                        {% endif %}
+                    {% endfor %}
+                        {% if valide == false %}
+                        {% else %}
+
+                            {% if event.date ? event.date|date('Y-m-d') > "now"|date('Y-m-d') %}
+
+                                <tr>
+                                    <td>{{ event.id }}</td>
+                                    <td>{{ event.type }}</td>
+                                    <td>{{ event.titre }}</td>
+                                    <td>{{ event.description }}</td>
+                                    <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
+                                    <td>{{ event.nbPlaceTotal }}</td>
+                                    <td>{{ event.nbPlace }}</td>
+                                    <td><a href="{{ path('valide', {'id': event.id}) }}">Valider L'Evenement</a></td>
+
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Script pour initialiser DataTables -->
+        <script>
+            $(document).ready(function() {
+                $('#eventsTable').DataTable();
+            });
+        </script>
+    {% endblock %}

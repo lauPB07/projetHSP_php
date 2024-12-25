@@ -28,6 +28,45 @@ class EventController extends AbstractController
         ]);
     }
 
+    #[Route('/myEvent', name: 'myEvent')]
+    public function myEvent(EntityManagerInterface $em,Security $security): Response
+    {
+        $events = $em->getRepository(Event::class)->findAll();
+        return $this->render('event/myEvent.html.twig', [
+            'controller_name' => 'EventController',
+            'events' => $events,
+        ]);
+    }
+
+    #[Route('/valideEvent', name: 'valideEvent')]
+    public function valideEvent(EntityManagerInterface $em,Security $security): Response
+    {
+        $events = $em->getRepository(Event::class)->findAll();
+        return $this->render('event/valideEvent.html.twig', [
+            'controller_name' => 'EventController',
+            'events' => $events,
+        ]);
+    }
+
+    #[Route('/editEvent/{id}/valide', name: 'valide', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function valide(Request $request, Event $event, EntityManagerInterface $entityManager, Security $security): Response
+    {
+        $user = $security->getUser();
+
+        if ($user) {
+            // Ajout de l'utilisateur à l'événement
+            $event->addUser($user);
+
+            // Si nécessaire, assurez-vous de persister l'entité Event
+            $entityManager->persist($event);
+
+            // Flusher les changements dans la base de données
+            $entityManager->flush();
+        }
+
+        // Rediriger vers une autre route après l'ajout de l'utilisateur
+        return $this->redirectToRoute('valideEvent', [], Response::HTTP_SEE_OTHER);
+    }
     #[Route('/api/events', name: 'get_events', methods: ['GET'])]
     public function getEvents(Request $request, EventRepository $eventRepository): JsonResponse
     {
@@ -90,7 +129,7 @@ class EventController extends AbstractController
     }
 
     #[Route('/editEvent/{id}/edit', name: 'editEvent', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
-    public function editOffre(Event $event, Request $request, EntityManagerInterface $entityManager): Response{
+    public function editEvent(Event $event, Request $request, EntityManagerInterface $entityManager): Response{
         $form = $this->createForm(EventFormType::class, $event);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
