@@ -18,32 +18,35 @@ class OffreFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('mission_lier')
-            ->add('salaire')
-            ->add('est_cloturer')
-            ->add('ref_EntrepriseCreer', EntityType::class, [
-                'class' => FicheEntreprise::class,
-                'choice_label' => 'nom_entreprise', // Assurez-vous de spécifier la propriété appropriée
-                'multiple' => true,
-                'expanded' => false, // ou false pour un select au lieu de checkboxes
+            ->add('titre', null, [
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'offre'],
+            ])
+            ->add('description', null, [
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Description de l\'offre'],
+            ])
+            ->add('mission_lier', null, [
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Mission liée'],
+            ])
+            ->add('salaire', null, [
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Salaire proposé'],
+            ])
+            ->add('est_cloturer', null, [
+                'attr' => ['class' => 'form-check-input'],
             ])
             ->add('ref_typeOffre', EntityType::class, [
                 'class' => TypeOffre::class,
-'choice_label' => 'nom',
+                'choice_label' => 'nom',
+                'attr' => ['class' => 'form-select'],
             ])
-            ->add('Save', SubmitType::class)
-        ;
-
-
+            ->add('Save', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary mt-3'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Offre::class,
-            'entreprises' => [],
         ]);
     }
 }

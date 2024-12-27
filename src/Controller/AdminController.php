@@ -18,9 +18,11 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'app_admin')]
     public function index(UserRepository $userRepository): Response
     {
+
         return $this->render('admin/index.html.twig', [
             'user'=>$userRepository->findAll(),
         ]);
+
     }
     #[Route('/valider/{id}', name: 'app_valider')]
     public function valider(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager): Response

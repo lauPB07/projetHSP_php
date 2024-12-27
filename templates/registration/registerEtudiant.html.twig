@@ -1,27 +1,91 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
 
-{% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inscription</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon"  href="{{ asset('login/images/icons/favicon.ico') }}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/vendor/daterangepicker/daterangepicker.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"  href="{{ asset('login/css/util.css') }}">
+    <link rel="stylesheet"  href="{{ asset('login/css/main.css') }}">
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
 
-    <h1>Register</h1>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form method="post" class="login100-form validate-form">
+                    <span class="login100-form-title p-b-43">
+                        Inscrivez-vous
+                    </span>
 
-    {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.cv) }}
-        {{ form_row(registrationForm.formation_etudiant) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.nom) }}
+                {{ form_row(registrationForm.prenom) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.cv) }}
+                {{ form_row(registrationForm.formation_etudiant) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button type="submit" class="btn">Register</button>
+                {{ form_end(registrationForm) }}
+            </form>
+
+
+            <div class="login100-more" style="background-image: url('{{ asset('login/images/medecin-login.jpg') }}');">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+
+
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/bootstrap/js/popper.js') }}"></script>
+<script src="{{ asset('login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/daterangepicker/moment.min.js') }}"></script>
+<script src="{{ asset('login/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('login/js/main.js') }}"></script>
+
+</body>
+</html>
+
+
