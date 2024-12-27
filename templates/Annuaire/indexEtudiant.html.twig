@@ -14,7 +14,7 @@
             <th>Email</th>
             <th>Formation</th>
             <th>Cv</th>
-            {% if 4 in app.user.roles %}
+            {% if "Admin" in app.user.roles %}
                 <td>Supprimer</td>
             {% endif %}
 
@@ -29,8 +29,11 @@
                     <td>{{ user.prenom }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.formationEtudiant }}</td>
-                    {% if 4 in app.user.roles %}
-                        <td><a href="{{ path('app_refuser', {'id': user.id}) }}">Supprimer</a></td>
+                    <td>
+                        <a href="{{ path('download_cv', { id: user.id }) }}" class="btn btn-primary">Télécharger le CV</a>
+                    </td>
+                    {% if "Admin" in app.user.roles %}
+                        <td><a href="{{ path('app_sup', {'id': user.id}) }}">Supprimer</a></td>
                     {% endif %}
                 </tr>
             {% endif %}

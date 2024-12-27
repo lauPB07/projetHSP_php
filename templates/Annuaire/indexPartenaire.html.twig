@@ -13,17 +13,23 @@
             <th>Prenom</th>
             <th>Email</th>
             <th>Entreprise</th>
+            {% if "Admin" in app.user.roles %}
+                <td>Supprimer</td>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
         {% for user in user %}
-            {% if 1 in user.getRoles()  %}
+            {% if user.getRefRole() is not null and  3 %}
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.nom }}</td>
                     <td>{{ user.prenom }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.getRefEntreprise().getNomEntreprise()}}</td>
+                    {% if "Admin" in app.user.roles %}
+                        <td><a href="{{ path('app_sup', {'id': user.id}) }}">Supprimer</a></td>
+                    {% endif %}
                 </tr>
             {% endif %}
         {% else %}
