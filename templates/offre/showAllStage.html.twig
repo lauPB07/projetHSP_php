@@ -18,7 +18,11 @@
                     <p class="card-text">Description de l'offre : {{ offre.description }}</p>
                     <p class="card-text">Les missions lier: {{ offre.missionlier }}</p>
                     <p class="card-text">Le salaire: {{ offre.salaire}}</p>
-                    <a href="{{ path('participerOffre', { 'id': offre.id }) }}">Participer</a>
+                    {% if offre.isEstCloturer()==1 %}
+                        <p>L'offre est cloturer</p>
+                    {% else  %}
+                        <a href="{{ path('participerOffre', { 'id': offre.id }) }}">Participer</a>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

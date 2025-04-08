@@ -25,6 +25,9 @@
                                 <button type="submit" class="btn btn-danger" >Supprimer</button>
                             </form>
                             <a href="{{ path('participantOffre',{id:offre.id}) }}" class="btn btn-secondary">Voir postulant</a>
+                            {% if offre.isEstCloturer()==1 %}
+                                <p>L'offre est cloturer</p>
+                            {% endif %}
                         {% else %}
                             <p>Vous ne pouvez pas éditer cette offre car vous n'êtes pas le créateur.</p>
                         {% endif %}

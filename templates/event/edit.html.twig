@@ -3,6 +3,72 @@
 {% block title "Evenement : "~ event.titre %}
 
 {% block body %}
-    <h1>{{ event.titre }}</h1>
-    {{ form(form) }}
+    <div class="form-container">
+        <h3>Modifier {{ event.titre }}</h3>
+        {{ form_start(form, {'attr': {'class': 'my-form-class'}}) }}
+
+        <div class="mb-3">
+            {{ form_label(form.type, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.type) }}
+            {{ form_errors(form.type) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.titre, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.titre) }}
+            {{ form_errors(form.titre) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.rue, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.rue) }}
+            {{ form_errors(form.rue) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.cp, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.cp) }}
+            {{ form_errors(form.cp) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.ville, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.ville) }}
+            {{ form_errors(form.ville) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.element_sup, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.element_sup) }}
+            {{ form_errors(form.element_sup) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.nbPlace, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nbPlace) }}
+            {{ form_errors(form.nbPlace) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.save) }}
+
+        </div>
+        <div>
+            <a class="btn btn-primary" href="{{ path('event') }}">Retour</a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

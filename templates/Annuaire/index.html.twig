@@ -14,22 +14,28 @@
             <th>Email</th>
             <th>Spécialité</th>
             <th>Etablissement</th>
+            {% if "Admin" in app.user.roles %}
+                <td>Supprimer</td>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
         {% for user in user %}
             {% if user.getRefRole() is not null and user.getRefRole().getId() == 2 %}
                     <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.nom }}</td>
-                    <td>{{ user.prenom }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.getRefSpe()}}</td>
-                    {% if user.getRefEtablissement() is null %}
-                        <td> Le medecin n'est pas lier à un établissement</td>
-                    {% else %}
-                        <td>{{ user.getRefEtablissement().getNomEtablissement()}}</td>
-                    {% endif %}
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.getRefSpe()}}</td>
+                        {% if user.getRefEtablissement() is null %}
+                            <td> Le medecin n'est pas lier à un établissement</td>
+                        {% else %}
+                            <td>{{ user.getRefEtablissement().getNomEtablissement()}}</td>
+                        {% endif %}
+                        {% if  "Admin" in app.user.roles %}
+                            <td><a href="{{ path('app_sup', {'id': user.id}) }}">Supprimer</a></td>
+                        {% endif %}
                 </tr>
             {% endif %}
         {% else %}

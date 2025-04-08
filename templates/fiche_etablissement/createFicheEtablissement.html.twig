@@ -1,6 +1,46 @@
 {% extends 'base.html.twig' %}
 {% block title %}Créer une fiche etablissement{% endblock %}
 {% block body %}
-    {{ form(form) }}
-    <a class="btn btn-primary" href="{{ path('profilEtablissement') }}">Retour</a>
+    <div class="form-container">
+        {{ form_start(form, {'attr': {'class': 'my-form-class'}}) }}
+
+        <div class="mb-3">
+            {{ form_label(form.nom_etablissement, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom_entreprise) }}
+            {{ form_errors(form.nom_entreprise) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.rue, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.rue) }}
+            {{ form_errors(form.rue) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.cp, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.cp) }}
+            {{ form_errors(form.cp) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.ville, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.ville) }}
+            {{ form_errors(form.ville) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.adresse_web, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.adresse_web) }}
+            {{ form_errors(form.adresse_web) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.Save) }}
+        </div>
+        <div>
+            <a class="btn btn-primary" href="{{ path('profilEntreprise') }}">Retour</a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

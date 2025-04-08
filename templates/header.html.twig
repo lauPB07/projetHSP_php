@@ -32,7 +32,13 @@
                                     <li><a href="{{ path('showAllProjets') }}">Projets</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ path('event') }}">Evenements</a></li>
+                            <li class="dropdown">
+                                <a href="#"><span>Evenement</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="{{ path('event') }}">Evenements</a></li>
+                                    <li><a href="{{ path('myEvent') }}">Mes Evenements</a></li>
+                                </ul>
+                            </li>
                         {% endif %}
                         {% if 'Partenaire/Entreprise' in app.user.roles  %}
                             <li><a href="{{ path('app_question_support_index') }}">Contact</a></li>
@@ -47,14 +53,27 @@
                                         <li><a href="{{ path('showProjets') }}">Projets</a></li>
                                     </ul>
                                 </li>
-                            <li><a href="{{ path('event') }}">Evenements</a></li>
-                             {% endif%}
+                                <li class="dropdown">
+                                    <a href="#"><span>Evenement</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <ul>
+                                        <li><a href="{{ path('event') }}">Evenements</a></li>
+                                        <li><a href="{{ path('myEvent') }}">Mes Evenements</a></li>
+                                    </ul>
+                                </li>
+                            {% endif%}
                         {% endif %}
                         {% if 'Medecin' in app.user.roles %}
                             <li><a href="{{ path('app_question_support_index') }}">Contact</a></li>
                             <li><a href="{{ path('profilEtablissement') }}">Etablissement</a></li>
-                            <li><a href="{{ path('event') }}">Evenements</a></li>
                             <li><a href="{{ path('app_medecin') }}">Annuair Etudiant</a></li>
+                            <li class="dropdown">
+                            <a href="#"><span>Evenement</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                                <li><a href="{{ path('event') }}">Evenements</a></li>
+                                <li><a href="{{ path('myEvent') }}">Mes Evenements</a></li>
+                                <li><a href="{{ path('valideEvent') }}">Valider les Evenements</a></li>
+                            </ul>
+                        </li>
                         {% endif %}
                         {% if 'Admin' in app.user.roles %}
                             <li><a href="{{ path('app_question_support_index') }}">Contact</a></li>
@@ -67,7 +86,13 @@
                                     <li><a href="{{ path('app_partenaire') }}">Annuaire des Partenaire</a></li>
                                 </ul>
                             </li>
-
+                            <li class="dropdown">
+                                <a href="#"><span>Evenement</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="{{ path('event') }}">Evenements</a></li>
+                                    <li><a href="{{ path('myEvent') }}">Mes Evenements</a></li>
+                                </ul>
+                            </li>
                         {% endif %}
                     {% endif %}
                 </ul>

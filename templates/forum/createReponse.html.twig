@@ -1,6 +1,36 @@
 {% extends 'base.html.twig' %}
 {% block title %}Repondre a la question{% endblock %}
 {% block body %}
-    {{ form(form) }}
-    <a class="btn btn-primary" href="{{ path('app_forum') }}">Retour</a>
+    <div class="form-container">
+        <h3> Je repond</h3>
+        {{ form_start(form, {'attr': {'class': 'my-form-class'}}) }}
+
+        <div class="mb-3">
+            {{ form_label(form.contenue, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.contenue) }}
+            {{ form_errors(form.contenue) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.heure, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.heure) }}
+            {{ form_errors(form.heure) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.save) }}
+        </div>
+        <div>
+            <a class="btn btn-primary" href="{{ path('app_forum') }}">Retour</a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}

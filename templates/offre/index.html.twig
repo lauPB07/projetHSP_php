@@ -3,7 +3,49 @@
 {% block title %}Créer une offre{% endblock %}
 
 {% block body %}
-    <h1>Créer une offre</h1>
-    {{ form(form) }}
-    <a class="btn btn-primary" href="{{ path('home') }}">Retour</a>
+    <div class="form-container">
+        <h1>Créer une offre</h1>
+        {{ form_start(form, {'attr': {'class': 'my-form-class'}}) }}
+
+        <div class="mb-3">
+            {{ form_label(form.titre, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.titre) }}
+            {{ form_errors(form.titre) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.mission_lier, 'Mission liée', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.mission_lier) }}
+            {{ form_errors(form.mission_lier) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.salaire, 'Salaire', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.salaire) }}
+            {{ form_errors(form.salaire) }}
+        </div>
+
+        <div class="form-check mb-3">
+            {{ form_widget(form.est_cloturer) }}
+            {{ form_label(form.est_cloturer, 'Est Clôturé', {'label_attr': {'class': 'form-check-label'}}) }}
+            {{ form_errors(form.est_cloturer) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.ref_typeOffre, 'Type d\'offre', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.ref_typeOffre) }}
+            {{ form_errors(form.ref_typeOffre) }}
+        </div>
+
+        {{ form_widget(form.Save) }}
+        {{ form_end(form) }}
+        <a class="btn btn-primary" href="{{ path('home') }}">Retour</a>
+    </div>
+
 {% endblock %}

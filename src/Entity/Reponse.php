@@ -112,7 +112,7 @@ class Reponse
 
         return $this;
     }
-
+    
     public function setRefPost(?Post $ref_post): static
     {
         $this->ref_post = $ref_post;

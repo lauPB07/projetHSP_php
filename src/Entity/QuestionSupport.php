@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\QuestionSupportRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,7 +25,7 @@ class QuestionSupport
 
     #[ORM\ManyToOne(inversedBy: 'questionSupports')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $ref_user = null;
+    private ?User $ref_user = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $reponse = null;
